@@ -24,7 +24,7 @@ function profile_changed {
 							print $2
 						}')"
 	log "Connected to $profile_type: $profile_name"
-	~/Scripts/notification_templates.sh network "$profile_type" "$profile_name"
+	~/.config/scripts/notification_templates.sh network "$profile_type" "$profile_name"
 }
 
 function main {

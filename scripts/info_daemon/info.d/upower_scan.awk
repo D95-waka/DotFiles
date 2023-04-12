@@ -47,7 +47,7 @@ NF == 0 {
 		_log("Bar changed from: " bar " to: " bar_new)
 		bar = bar_new
 		if (bar != "normal") {
-			system("~/Scripts/notification_templates.sh battery " bar)
+			system("~/.config/scripts/notification_templates.sh battery " bar)
 		}
 	}
 
@@ -58,6 +58,6 @@ NF == 0 {
 	if (state_new != state) {
 		_log("State changed from: " state " to: " state_new)
 		state = state_new
-		system("~/Scripts/notification_templates.sh battery " state " " icon_name)
+		system("~/.config/scripts/notification_templates.sh battery " state " " icon_name)
 	}
 }

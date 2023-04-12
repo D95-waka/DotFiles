@@ -7,7 +7,7 @@ function idle_await {
 	if mpc idle player 2> /dev/null; then
 		log "mpc trigger"
 		sleep 0.1
-		~/Scripts/notification_templates.sh mpc
+		~/.config/scripts/notification_templates.sh mpc
 	else
 		sleep 10
 	fi
