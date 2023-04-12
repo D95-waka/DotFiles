@@ -173,7 +173,7 @@ XF86TouchpadToggle exec \
 	'$HOME/Scripts/binding_cli.sh touchpad'
 
 $mod+c exec \
-	'$HOME/Scripts/binding_cli.sh lock'
+	'$HOME/.config/sway/lock.sh capture blur lock clean suspend'
 
 #Capture options
 Shift+Print exec \
