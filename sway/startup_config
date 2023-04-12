@@ -11,7 +11,7 @@ input * {
 }
 
 exec_always 'killall mako; mako &'
-exec_always '~/Scripts/info_daemon/info_daemon.sh'
+exec_always '~/.config/scripts/info_daemon/info_daemon.sh'
 
 # startup apps
 exec ' \

@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+if [[ $# -eq 0 ]]; then
+	cat >> $HOME/.cache/info_daemon_logs
+else
+	echo "$(date --iso-8601=ns) ($$): $@" >> $HOME/.cache/info_daemon_logs
+fi

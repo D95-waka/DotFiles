@@ -28,7 +28,7 @@ $mod+grave exec \
 $mod+w kill
 
 $mod+r exec \
-	'$HOME/Scripts/binding_cli.sh bemenu_run'
+	'$HOME/.config/scripts/binding_cli.sh bemenu_run'
 
 $mod+e exec \
 	'exec $HOME/Scripts/binding_cli.sh bemenu_locate'
