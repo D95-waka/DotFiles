@@ -11,20 +11,43 @@ font universal 8
 seat seat0 xcursor_theme Adwaita 12
 output * bg '~/.config/wallpapers/gruvbox_pinguin.png' fill
 
-exec_always ' \
-	source $HOME/Scripts/colors_define.sh; \
-	swaymsg client.focused			"${color_values[4]}" "${background_value}" "${foreground_value}" "${color_values[7]}" "${color_values[4]}"; \
-	swaymsg client.focused_inactive	"${color_values[8]}" "${background_value}" "${foreground_value}" "${color_values[8]}" "${background_value}"; \
-	swaymsg client.unfocused 		"${color_values[8]}" "${background_value}" "${foreground_value}" "${color_values[8]}" "${background_value}"; \
-	swaymsg client.urgent	 		"#000000" "#000000" "#000000" "#777777" "${background_value}"; \
-	swaymsg client.placeholder 		"#000000" "#000000" "#000000" "#777777" "${background_value}"'
+set $c1 #cc241d
+set $c2 #d79921
+set $c3 #458588
+set $c4 #504945
+set $c5 #665c54
 
-# Example for standard colors table
-# class                 border  backgr. text    indicator child_border
-#client.focused          #000000 #000000 #ffffff #b6b6b6   #b6b6b6
-#client.focused_inactive #000000 #000000 #ffffff #777777   #777777
-#client.unfocused        #000000 #000000 #ffffff #777777   #777777
-#client.urgent           #000000 #000000 #ffffff #777777   #777777
-#client.placeholder      #000000 #000000 #ffffff #777777   #777777
+set $white #fbf1c7
+set $dark #1d2021
+set $dim #282828
+
+set $focused_bgcolor $white
+set $focused_textcolor $dark
+set $focused_indicator $c1
+
+set $inactive_bgcolor $c5
+set $inactive_textcolor $white
+set $inactive_indicator $c3
+
+set $unfocused_bgcolor $c4
+set $unfocused_textcolor $white
+set $unfocused_indicator $c5
+
+set $urgent_bgcolor $c1
+set $urgent_textcolor $c4
+set $urgent_indicator $c3
+
+client.focused $focused_bgcolor $focused_bgcolor $focused_textcolor $focused_indicator $focused_bgcolor
+client.focused_inactive $inactive_bgcolor $inactive_bgcolor $inactive_textcolor $inactive_indicator $inactive_bgcolor
+client.unfocused $unfocused_bgcolor $unfocused_bgcolor $unfocused_textcolor $unfocused_indicator $unfocused_bgcolor
+client.urgent $urgent_bgcolor $urgent_bgcolor $urgent_textcolor $urgent_indicator $urgent_bgcolor
+
+bar 1 colors {
+	background $dark
+	statusline $white
+	separator $c4
+	focused_workspace $c5 $c3 $white
+	inactive_workspace $c5 $dim $white
+}
 
 # vim: set syntax=sh :
