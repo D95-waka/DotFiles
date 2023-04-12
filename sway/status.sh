@@ -16,7 +16,7 @@ function battery {
 		#print state, q
 
 		if (state == "charging") {
-			icon = ""
+			icon = "󰂄"
 		} else if (q < 10) {
 			icon = "󰁺"
 		} else if (q < 20) {
