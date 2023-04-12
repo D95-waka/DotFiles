@@ -13,7 +13,9 @@
 !mpv/*
 !mako/*
 !fontconfig/**
-!fish/**
+!fish/config.fish
+!fish/functions/
+fish/functions/_*
 !gtk-3.0/**
 !gtk-4.0/**
 !scripts/**

@@ -11,6 +11,7 @@ function resolve {
 	case "$arg" in
 		"capture")
 			grim -t png "$img"
+			log "capture into $img"
 			;;
 		"background")
 			cp "$HOME/.config/wallpapers/gruvbox_pinguin.png" "$img"
@@ -20,10 +21,11 @@ function resolve {
 			;;
 		"lock")
 			swaylock -i "$img" &
+			log "lock called"
 			;;
 		"clean")
-			sleep 0.1
-			rm "$img"
+			(sleep 1; rm "$img") &
+			log "clean called"
 			;;
 		"suspend")
 			systemctl suspend
@@ -36,6 +38,7 @@ function resolve {
 			;;
 		"blur")
 			convert "$img" -blur 0x7 "$img"
+			log "blured the image"
 			;;
 		"text")
 			convert "$img" \
@@ -68,4 +71,4 @@ function main {
 	done
 }
 
-main "$@" &> $HOME/.cache/lock_logs
+main "$@" &>> $HOME/.cache/lock_logs
