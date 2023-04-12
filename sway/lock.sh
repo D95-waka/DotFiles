@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 
+function log {
+	echo "$@" >> $HOME/.cache/lock_logs
+}
+
 function resolve {
 	local arg="$1"
 	local img="$2"
@@ -50,6 +54,11 @@ function resolve {
 				-composite -matte "$img"
 			;;
 	esac
+	
+	if [[ $? != 0 ]]; then
+		log "Failed command '$arg' with img '$img'"
+		exit 1
+	fi
 }
 
 function main {
@@ -59,4 +68,4 @@ function main {
 	done
 }
 
-main "$@"
+main "$@" &> $HOME/.cache/lock_logs
