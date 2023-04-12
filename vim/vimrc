@@ -14,7 +14,6 @@ set scrolloff=1
 set undodir=~/.local/state/nvim/undo/
 set undofile
 filetype plugin on
-set omnifunc=syntaxcomplete#Complete
 let mapleader = " "
 noremap <leader>y "+y
 noremap <leader>p "+p
@@ -58,38 +57,9 @@ augroup pencil
 	autocmd FileType text         call pencil#init()
 augroup END
 
-" Disable arrow keys:
-nnoremap <Left> <Nop>
-inoremap <Left> <Nop>
-vnoremap <Left> <Nop>
-" cnoremap <Left> <Nop>
-
-nnoremap <Right> <Nop>
-inoremap <Right> <Nop>
-vnoremap <Right> <Nop>
-" cnoremap <Right> <Nop>
-
-nnoremap <Up> <Nop>
-inoremap <Up> <Nop>
-vnoremap <Up> <Nop>
-" cnoremap <Up> <Nop>
-
-nnoremap <Down> <Nop>
-inoremap <Down> <Nop>
-vnoremap <Down> <Nop>
-" cnoremap <Down> <Nop>
-
-" Ctags auto-updating
-function! UpdateTags(path)
-	let tags_file = findfile("tags", ".;")
-	let command_string = "ctags -a -f '" . tags_file . "' '" . a:path . "'"
-	let job = jobstart(command_string)
-endfunction
-autocmd BufWritePost * call UpdateTags(expand("<afile>"))
-
 " Extensions
 lua << END
-require('gitsigns').setup()
+require('gitsigns').setup{}
 require('lualine').setup {
 	options = {
 		theme = 'gruvbox',
@@ -118,47 +88,74 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+	-- Enable completion triggered by <c-x><c-o>
+	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+	-- Mappings.
+	local bufopts = { noremap=true, silent=true, buffer=bufnr }
+	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+	vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+	vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+	vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+	vim.keymap.set('n', '<space>wl', function()
+	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	end, bufopts)
+	vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+	vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
+
+require('lspconfig').texlab.setup {
+	on_attach = on_attach,
+	capabilities = require("cmp_nvim_lsp").default_capabilities(),
+	settings = {
+		["texlab"] = {
+			auxDirectory = "./bin/",
+			build = {
+				executable = "latexmk",
+				args = { "-xelatex", "-interaction=nonstopmode", "-synctex=1", '-output-directory=./bin/', "%f" },
+				forwardSearchAfter = false,
+				onSave = true
+			},
+			forwardSearch = {
+				executable = "zathura",
+				args = { "--synctex-forward", "%l:1:%f", "%p" }
+			}
+		}
+	}
+}
+
+local cmp = require('cmp')
+cmp.setup {
+	sources = {
+		{ name = 'nvim_lsp' }
+	},
+	snippet = {
+		expand = function(args)
+			require('luasnip').lsp_expand(args.body)
+		end
+	},
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered()
+	},
+	mapping = cmp.mapping.preset.insert({
+		['<C-b>'] = cmp.mapping.scroll_docs(-4),
+		['<C-f>'] = cmp.mapping.scroll_docs(4),
+		['<C-Space>'] = cmp.mapping.complete(),
+		['<C-e>'] = cmp.mapping.abort(),
+		['<CR>'] = cmp.mapping.confirm({ select = true })
+	})
+}
+
 END
 
-let g:ale_linters = { 'tex': [ 'chktex' ] }
-let g:ale_fixers = { 'json': [ 'jq' ] }
-
-let g:vimtex_compiler_latexmk = {
-	\ 'build_dir': './bin/',
-	\ 'callback': 1,
-	\ 'continuous': 1,
-	\ 'executable': 'latexmk',
-	\ 'hooks': [],
-	\ 'options': [
-	\   '-verbose',
-	\   '-file-line-error',
-	\   '-synctex=1',
-	\   '-interaction=nonstopmode',
-	\ ],
-	\}
-let g:vimtex_compiler_latexmk_engines = {
-	\ '_': '-xelatex',
-	\}
-let g:vimtex_view_method = 'zathura'
-let g:vimtex_syntax_enabled = 'false'
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
+inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>

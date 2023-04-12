@@ -1,9 +1,6 @@
 [submodule "vim/pack/bundle/start/gitsigns.nvim"]
 	path = vim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim.git
-[submodule "vim/pack/bundle/start/ale"]
-	path = vim/pack/bundle/start/ale
-	url = https://github.com/dense-analysis/ale.git
 [submodule "vim/pack/bundle/start/gruvbox"]
 	path = vim/pack/bundle/start/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
@@ -19,9 +16,15 @@
 [submodule "vim/pack/bundle/start/vim-pencil"]
 	path = vim/pack/bundle/start/vim-pencil
 	url = https://github.com/preservim/vim-pencil
-[submodule "vim/pack/bundle/start/vimtex"]
-	path = vim/pack/bundle/start/vimtex
-	url = https://github.com/lervag/vimtex.git
 [submodule "vim/pack/bundle/start/lualine.nvim"]
 	path = vim/pack/bundle/start/lualine.nvim
 	url = https://github.com/nvim-lualine/lualine.nvim.git
+[submodule "vim/pack/bundle/start/LuaSnip"]
+	path = vim/pack/bundle/start/LuaSnip
+	url = https://github.com/L3MON4D3/LuaSnip.git
+[submodule "vim/pack/bundle/start/cmp-nvim-lsp"]
+	path = vim/pack/bundle/start/cmp-nvim-lsp
+	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
+[submodule "vim/pack/bundle/start/nvim-cmp"]
+	path = vim/pack/bundle/start/nvim-cmp
+	url = https://github.com/hrsh7th/nvim-cmp.git
