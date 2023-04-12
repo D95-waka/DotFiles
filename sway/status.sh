@@ -86,10 +86,11 @@ function network {
 	printf '{ "full_text": "%s %s", "color": "%s", "separator": false }, { "full_text": "%s", "min_width": 50 }' "$logo" "$vpn_logo" "$color" "$network_name"
 }
 
+network_statistics_tmp_file='/tmp/status_network_statistics_state.txt'
+echo '0 0' > $network_statistics_tmp_file
 function network_statistics {
-	local tmp_helper='/tmp/status_network_statistics_state.txt'
 	IFS=' '
-	read __last_download_size __last_upload_size < $tmp_helper
+	read __last_download_size __last_upload_size < $network_statistics_tmp_file
 
 	local __proc_net_data=($(cat /proc/net/dev | awk '$1 ~ /wlp3s0/ {print $2, $10;}'))
 	local __current_download_size="${__proc_net_data[0]}"
@@ -99,7 +100,7 @@ function network_statistics {
 	local __upload_speed="$(numfmt --to=iec --suffix=B $(echo "$LOOP_SPAN_INVERTED * ($__current_upload_size - $__last_upload_size)" | bc -l))"
 	local ="$(numfmt --to=iec --suffix=B $(( __current_upload_size - __last_upload_size )))"
 	printf '{ "full_text": "󰇚", "separator": false }, { "full_text": "%s", "min_width": 50 }, { "full_text": "󰕒", "separator": false }, { "full_text": "%s", "min_width": 50 }' "$__download_speed" "$__upload_speed"
-	echo $__current_download_size $__current_upload_size > $tmp_helper
+	echo $__current_download_size $__current_upload_size > $network_statistics_tmp_file
 }
 
 function datetime {

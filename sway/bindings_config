@@ -119,28 +119,28 @@ $mod+Shift+n exec \
 # Volume keys
 
 XF86AudioLowerVolume exec \
-	notify-send -t 500 "	$(amixer sset Master 5%- | \
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 "	$(amixer sset Master 5%- | \
 	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
 
 XF86AudioRaiseVolume exec \
-	notify-send -t 500 "	$(amixer sset Master 5%+ | \
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 "	$(amixer sset Master 5%+ | \
 	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
 
 XF86AudioMute exec \
-	notify-send -t 500 "$(amixer sset Master toggle | \
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 "$(amixer sset Master toggle | \
 	awk '$2 == "Left:" { if ($6 == "[off]") printf ""; else printf "" }')"
 
 Shift+XF86AudioLowerVolume exec \
-	notify-send -t 500 "󰢳	$(amixer sset Capture 5%- | \
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 "󰢳	$(amixer sset Capture 5%- | \
 	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
 
 Shift+XF86AudioRaiseVolume exec \
-	notify-send -t 500 "󰢴	$(amixer sset Capture 5%+ | \
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 "󰢴	$(amixer sset Capture 5%+ | \
 	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
 
 # Mic mute
 $mod+m exec \
-	notify-send -t 500 "$(amixer sset Capture toggle | \
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 "$(amixer sset Capture toggle | \
 	awk '$2 == "Left:" { if ($6 == "[off]") printf "󰍭"; else printf "󰍬" }')"
 
 # player controllers
@@ -166,7 +166,7 @@ XF86AudioPrev exec \
 
 XF86TouchpadToggle exec \
 	swaymsg input type:touchpad events toggle | \
-	notify-send -t 3000 "$(swaymsg -t get_inputs | \
+	notify-send -h string:x-dunst-stack-tag:binds -t 3000 "$(swaymsg -t get_inputs | \
 		jq -r '.[0].libinput.send_events | \
 		if . == \"enabled\" then "󰍽" else (if . == "disabled" then "󰍾" else "󰎀" end) end')"
 
@@ -185,17 +185,17 @@ Print exec \
 
 #Change to next language.
 $mod+space exec \
-	notify-send -t 500 \
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 \
 		"󰗊	$(swaymsg -t get_inputs -r | jq '.[1].xkb_active_layout_name' -r | sed 's/ .*$//')"
 
 #Brightness controllers
 XF86MonBrightnessUp exec \
 	light -A 5% | \
-	notify-send -t 500 "󰃟	$(light -g | sed 's/\..*//')%"
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 "󰃟	$(light -g | sed 's/\..*//')%"
 
 XF86MonBrightnessDown exec \
 	light -U 5% | \
-	notify-send -t 500 "󰃟	$(light -g | sed 's/\..*//')%"
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 "󰃟	$(light -g | sed 's/\..*//')%"
 
 XF86ScreenSaver exec \
 	sh -c 'if [[ "$(light)" == "0.00" ]]; then light -I; else light -O; light -S 0; fi'
