@@ -13,14 +13,16 @@ function battery {
 	}
 
 	END {
-		#print state, q
-
+		color = "#ffffff"
 		if (state == "charging") {
 			icon = "󰂄"
+			color = "#dddd00"
 		} else if (q < 10) {
 			icon = "󰁺"
+			color = "#ff0000"
 		} else if (q < 20) {
 			icon = "󰁻"
+			color = "#ff0000"
 		} else if (q < 30) {
 			icon = "󰁼"
 		} else if (q < 40) {
@@ -37,9 +39,10 @@ function battery {
 			icon = "󰂂"
 		} else {
 			icon = "󰁹"
+			color = "#00ff00"
 		}
 
-		printf "%s %s%%", icon, q
+		printf "{ \"full_text\": \"%s\", \"color\": \"%s\", \"separator\": false }, { \"full_text\": \"%s%%\" }", icon, color, q
 	}'
 }
 
@@ -47,7 +50,7 @@ source ~/.config/sway/cpu_retrieve_functions.sh
 _retrieve_cpu_init 
 function cpu {
 	local cpu_value="$(retrieve_cpu)"
-	printf " %s%%" "$cpu_value"
+	printf '{ "full_text": " %s%%" }' "$cpu_value"
 }
 
 function network {
@@ -69,7 +72,7 @@ function network {
 		# airplane mode
 		printf '󰀝 '
 	else
-		printf "%s%s" "$network_name" "$vpn_status"
+		printf '{ "full_text": "%s%s" }' "$network_name" "$vpn_status"
 	fi
 }
 
@@ -84,16 +87,16 @@ function network_statistics {
 
 	local __download_speed="$(numfmt --to=iec --suffix=B $(( __current_download_size - __last_download_size )))"
 	local __upload_speed="$(numfmt --to=iec --suffix=B $(( __current_upload_size - __last_upload_size )))"
-	printf '󰇚 %s\t󰕒 %s' "$__download_speed" "$__upload_speed"
+	printf '{ "full_text": "󰇚 %s 󰕒 %s", "min_width": 100 }' "$__download_speed" "$__upload_speed"
 	echo $__current_download_size $__current_upload_size > $tmp_helper
 }
 
 function datetime {
-	date +'  %d/%m/%y %H:%M:%S'
+	printf '{ "full_text": " ", "color": "ffff00", "separator": false }, { "full_text": "%s" }' "$(date +'%d/%m/%y %H:%M:%S')"
 }
 
 function volume {
-	pactl list sinks | awk '
+	local logo="$(pactl list sinks | awk '
 		$1 == "Active" {
 			if ($3 == "analog-output-speaker") {
 				printf "%s", "󰓃 "
@@ -104,22 +107,23 @@ function volume {
 			}
 			
 			exit
-		}'
+		}')"
 
-	amixer sget Master | awk '
+	local score="$(amixer sget Master | awk '
 		$1 == "Front" {
 			printf "%s", $5
 			exit
 		}' |
-		sed 's/\[\|\]//g'
+			sed 's/\[\|\]//g')"
+	printf '{ "full_text": "%s %s" }' $logo $score
 }
 
 function playing {
 	local current="$(mpc current -f '%title% by %artist%' 2> /dev/null)"
 	if [[ "$current" != '' ]]; then
-		printf " %s" "$current"
+		printf "  %s" "$current"
 	else
-		printf "%s" '󰝛'
+		printf '{ "full_text": "%s" }' '󰝛 '
 	fi
 }
 
@@ -142,16 +146,22 @@ function memory {
 		}
 
 		END {
-			printf "󰍛 %d%%", (mem_total - mem_free + swap_total - swap_free) / mem_total * 100
+			printf "{ \"full_text\": \"󰍛 %d%%\" }", (mem_total - mem_free + swap_total - swap_free) / mem_total * 100
 		}'
 }
 
 function logo {
-	printf " "
+	printf '{ "full_text": " ", "color": "#1790cd" }'
 }
 
+function protocol_start {
+	printf '{ "version": 1, "click_events": true, "cont_signal": 18, "stop_signal": 19 }
+['
+}
+
+protocol_start
 while true; do
-	printf "\n%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" \
+	printf '[ %s, %s, %s, %s, %s, %s, %s, %s, %s ],' \
 		"$(battery)" "$(cpu)" "$(memory)" "$(network)" \
 		"$(network_statistics)" "$(volume)" \
 		"$(playing)" "$(datetime)" "$(logo)"
