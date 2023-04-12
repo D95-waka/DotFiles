@@ -13,3 +13,4 @@
 !mpv/*
 !mako/*
 !fontconfig/**
+!fish/**
