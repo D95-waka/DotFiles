@@ -1,3 +1,24 @@
 [submodule "vim/pack/bundle/start/gitsigns.nvim"]
 	path = vim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim.git
+[submodule "vim/pack/bundle/start/ale"]
+	path = vim/pack/bundle/start/ale
+	url = https://github.com/dense-analysis/ale.git
+[submodule "vim/pack/bundle/start/gruvbox"]
+	path = vim/pack/bundle/start/gruvbox
+	url = https://github.com/morhetz/gruvbox.git
+[submodule "vim/pack/bundle/start/nvim-lspconfig"]
+	path = vim/pack/bundle/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig.git
+[submodule "vim/pack/bundle/start/nvim-treesitter"]
+	path = vim/pack/bundle/start/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter.git
+[submodule "vim/pack/bundle/start/vim-fish"]
+	path = vim/pack/bundle/start/vim-fish
+	url = https://github.com/dag/vim-fish.git
+[submodule "vim/pack/bundle/start/vim-pencil"]
+	path = vim/pack/bundle/start/vim-pencil
+	url = https://github.com/preservim/vim-pencil
+[submodule "vim/pack/bundle/start/vimtex"]
+	path = vim/pack/bundle/start/vimtex
+	url = https://github.com/lervag/vimtex.git
