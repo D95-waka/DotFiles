@@ -12,13 +12,12 @@ input * {
 
 exec_always 'killall mako; mako &'
 exec_always '~/Scripts/info_daemon/info_daemon.sh'
-exec_always 'xrdb $HOME/.Xresources'
 
 # startup apps
 exec ' \
 	$TERMINAL & \
 	$TERMINAL -e ranger & \
-	firefox &'
+	pidof -q firefox || firefox &'
 
 bar 1 {
 	font "Iosevka Nerd Font Regular"

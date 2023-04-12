@@ -63,20 +63,20 @@ function network {
 		logo='󰖪'
 	fi
 
-	local vpn_status=""
+	local vpn_logo=''
 	local vpn_connection_name="$(nmcli connection show --active |
 		awk '$3 == "vpn" { print $1; }')"
 	if [[ "$vpn_connection_name" != "" ]]; then
 		nmcli connection show "$vpn_connection_name" |
 			grep -q 'GENERAL.STATE.*activated$' &&
-			vpn_status=" vpn"
+			vpn_logo=''
 	fi
 
 	if rfkill list all | grep yes &> /dev/null; then
 		logo='󰀝'
 	fi
 
-	printf '{ "full_text": "%s", "separator": false }, { "full_text": "%s%s", "min_width": 50 }' "$logo" "$network_name" "$vpn_status"
+	printf '{ "full_text": "%s %s", "separator": false }, { "full_text": "%s", "min_width": 50 }' "$logo" "$vpn_logo" "$network_name"
 }
 
 function network_statistics {
