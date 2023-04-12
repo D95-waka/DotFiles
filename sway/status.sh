@@ -108,9 +108,10 @@ function volume {
 
 	amixer sget Master | awk '
 		$1 == "Front" {
-			printf "%s%%", $4
+			printf "%s", $5
 			exit
-		}'
+		}' |
+		sed 's/\[\|\]//g'
 }
 
 function playing {
