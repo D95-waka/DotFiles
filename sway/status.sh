@@ -146,10 +146,14 @@ function memory {
 		}'
 }
 
+function logo {
+	printf " "
+}
+
 while true; do
-	printf "\n%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" \
+	printf "\n%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" \
 		"$(battery)" "$(cpu)" "$(memory)" "$(network)" \
 		"$(network_statistics)" "$(volume)" \
-		"$(playing)" "$(datetime)"
+		"$(playing)" "$(datetime)" "$(logo)"
 	sleep 1
 done
