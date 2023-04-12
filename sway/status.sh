@@ -25,6 +25,7 @@ function battery {
 			color = "#ff0000"
 		} else if (q < 30) {
 			icon = "󰁼"
+			color = "#ff3300"
 		} else if (q < 40) {
 			icon = "󰁽"
 		} else if (q < 50) {
@@ -37,9 +38,11 @@ function battery {
 			icon = "󰂁"
 		} else if (q < 90) {
 			icon = "󰂂"
-		} else {
+		} else if (q == 100) {
 			icon = "󰁹"
 			color = "#00ff00"
+		} else {
+			icon = "󰁹"
 		}
 
 		printf "{ \"full_text\": \"%s\", \"color\": \"%s\", \"separator\": false }, { \"full_text\": \"%s%%\", \"min_width\": 50 }", icon, color, q
@@ -50,13 +53,14 @@ source ~/.config/sway/cpu_retrieve_functions.sh
 _retrieve_cpu_init 
 function cpu {
 	local cpu_value="$(retrieve_cpu)"
-	printf '{ "full_text": " %s%%", "min_width": 50 }' "$cpu_value"
+	printf '{ "full_text": "", "separator": false }, { "full_text": "%s%%", "min_width": 50 }' "$cpu_value"
 }
 
 function network {
-	local network_name="  $(iwgetid -r)"
+	local logo=''
+	local network_name="$(iwgetid -r)"
 	if [[ "$network_name" == "" ]]; then
-		network_name="󰖪 "
+		logo='󰖪'
 	fi
 
 	local vpn_status=""
@@ -69,11 +73,10 @@ function network {
 	fi
 
 	if rfkill list all | grep yes &> /dev/null; then
-		# airplane mode
-		printf '{ "full_text": "󰀝 ", "color": "#eeeeee", "min_width": 50 }' "$network_name" "$vpn_status"
-	else
-		printf '{ "full_text": "%s%s", "min_width": 50 }' "$network_name" "$vpn_status"
+		logo='󰀝'
 	fi
+
+	printf '{ "full_text": "%s", "separator": false }, { "full_text": "%s%s", "min_width": 50 }' "$logo" "$network_name" "$vpn_status"
 }
 
 function network_statistics {
@@ -87,21 +90,21 @@ function network_statistics {
 
 	local __download_speed="$(numfmt --to=iec --suffix=B $(( __current_download_size - __last_download_size )))"
 	local __upload_speed="$(numfmt --to=iec --suffix=B $(( __current_upload_size - __last_upload_size )))"
-	printf '{ "full_text": "󰇚 %s 󰕒 %s", "min_width": 150 }' "$__download_speed" "$__upload_speed"
+	printf '{ "full_text": "󰇚", "separator": false }, { "full_text": "%s", "min_width": 50 }, { "full_text": "󰕒", "separator": false }, { "full_text": "%s", "min_width": 50 }' "$__download_speed" "$__upload_speed"
 	echo $__current_download_size $__current_upload_size > $tmp_helper
 }
 
 function datetime {
-	printf '{ "full_text": " ", "color": "ffff00", "separator": false }, { "full_text": "%s" }' "$(date +'%d/%m/%y %H:%M:%S')"
+	printf '{ "full_text": "", "color": "ffff00", "separator": false }, { "full_text": "%s" }' "$(date +'%d/%m/%y %H:%M:%S')"
 }
 
 function volume {
 	local logo="$(pactl list sinks | awk '
 		$1 == "Active" {
 			if ($3 == "analog-output-speaker") {
-				printf "%s", "󰓃 "
+				printf "%s", "󰓃"
 			} else if ($3 == "analog-output-headphones") {
-				printf "%s", "󰋋 "
+				printf "%s", "󰋋"
 			} else {
 				printf "%s", $3
 			}
@@ -115,17 +118,17 @@ function volume {
 			exit
 		}' |
 			sed 's/\[\|\]//g')"
-	printf '{ "full_text": "%s %s", "min_width": 50 }' $logo $score
+	printf '{ "full_text": "%s", "separator": false }, { "full_text": "%s", "min_width": 50 }' $logo $score
 }
 
 function playing {
 	local current="$(mpc current -f '%title% by %artist%' 2> /dev/null)"
-	local logo='  '
+	local logo=''
 	if [[ "$current" == '' ]]; then
-		logo='󰝛 '
+		logo='󰝛'
 	fi
 
-	printf '{ "full_text": "%s%s", "min_width": 50 }' "$logo" "$current"
+	printf '{ "full_text": "%s", "separator": false }, { "full_text": "%s", "min_width": 50 }' "$logo" "$current"
 }
 
 function memory {
@@ -147,7 +150,7 @@ function memory {
 		}
 
 		END {
-			printf "{ \"full_text\": \"󰍛 %d%%\", \"min_width\": 50 }", (mem_total - mem_free + swap_total - swap_free) / mem_total * 100
+			printf "{ \"full_text\": \"󰍛\", \"separator\": false }, { \"full_text\": \"%d%%\", \"min_width\": 50 }", (mem_total - mem_free + swap_total - swap_free) / mem_total * 100
 		}'
 }
 
@@ -164,7 +167,7 @@ protocol_start
 while true; do
 	printf '[ %s, %s, %s, %s, %s, %s, %s, %s, %s ],' \
 		"$(battery)" "$(cpu)" "$(memory)" "$(network)" \
-		"$(network_statistics)" "$(volume)" \
-		"$(playing)" "$(datetime)" "$(logo)"
+		"$(network_statistics)" "$(playing)" \
+		"$(volume)" "$(datetime)" "$(logo)"
 	sleep 1
 done
