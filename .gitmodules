@@ -31,3 +31,6 @@
 [submodule "vim/pack/bundle/start/gruvbox.nvim"]
 	path = vim/pack/bundle/start/gruvbox.nvim
 	url = https://github.com/ellisonleao/gruvbox.nvim.git
+[submodule "vim/pack/bundle/start/vimtex"]
+	path = vim/pack/bundle/start/vimtex
+	url = https://github.com/lervag/vimtex.git

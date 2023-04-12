@@ -48,7 +48,9 @@ augroup pencil
 	autocmd FileType text         call pencil#init()
 augroup END
 
-" Extensions
+let g:vimtex_syntax_enabled = 0
+let g:vimtex_syntax_conceal_disable = 1
+
 lua << END
 require('gruvbox').setup({
 	transparent_mode = true
