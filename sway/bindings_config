@@ -31,10 +31,10 @@ $mod+r exec \
 	'$HOME/.config/scripts/binding_cli.sh bemenu_run'
 
 $mod+e exec \
-	'exec $HOME/Scripts/binding_cli.sh bemenu_locate'
+	'exec $HOME/.config/scripts/binding_cli.sh bemenu_locate'
 
 Ctrl+grave exec \
-	'$HOME/Scripts/clipboard_history_selector.sh'
+	'$HOME/.config/scripts/clipboard_history_selector.sh'
 
 # change focus
 $mod+$left focus left
@@ -175,13 +175,13 @@ $mod+c exec \
 
 #Capture options
 Shift+Print exec \
-	'$HOME/Scripts/binding_cli.sh screen_capture selection'
+	'$HOME/.config/scripts/binding_cli.sh screen_capture selection'
 
 $mod+Print exec \
-	'$HOME/Scripts/binding_cli.sh screen_capture region'
+	'$HOME/.config/scripts/binding_cli.sh screen_capture region'
 
 Print exec \
-	'$HOME/Scripts/binding_cli.sh screen_capture screen'
+	'$HOME/.config/scripts/binding_cli.sh screen_capture screen'
 
 #Change to next language.
 $mod+space exec \
