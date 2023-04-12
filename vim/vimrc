@@ -1,0 +1,163 @@
+" behevior settings
+set autoindent
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set modeline
+set modelines=5
+set wildmenu
+set formatoptions+=r
+set smartcase
+set incsearch		" Live-mathing of the search as it's being types
+set mouse=nvicr		" Allow mouse being used for cursor relocation and marks
+set scrolloff=1
+set undodir=~/.local/state/nvim/undo/
+set undofile
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+let mapleader = " "
+noremap <leader>y "+y
+noremap <leader>p "+p
+
+" syntax and number lines
+syntax on
+set number relativenumber
+set numberwidth=1
+" set encoding=utf8
+set conceallevel=2		" Enable conceled marked chars to be hidden
+set noshowmode
+set laststatus=2
+
+augroup HIGHLIGHT_OVERRIDES
+	autocmd!
+	autocmd ColorScheme * highlight CursorLineNr cterm=bold
+				\ | highlight Comment cterm=italic
+				\ | highlight Normal ctermbg=NONE guibg=NONE
+				\ | highlight NonText ctermbg=NONE guibg=NONE
+augroup END
+colorscheme gruvbox
+
+" for folding, za to toggle
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldlevel=30
+
+" abbreviations
+set iskeyword+=#
+iabbrev #sh #!/usr/bin/env sh<CR>
+
+augroup SPECIAL_FILES
+	autocmd!
+	autocmd BufNewFile,BufRead *.rasi set syntax=css
+	autocmd BufWritePost */.config/sway/* silent !swaymsg reload
+augroup END
+
+augroup pencil
+	autocmd!
+	autocmd FileType markdown,mkd call pencil#init()
+	autocmd FileType text         call pencil#init()
+augroup END
+
+" Disable arrow keys:
+nnoremap <Left> <Nop>
+inoremap <Left> <Nop>
+vnoremap <Left> <Nop>
+" cnoremap <Left> <Nop>
+
+nnoremap <Right> <Nop>
+inoremap <Right> <Nop>
+vnoremap <Right> <Nop>
+" cnoremap <Right> <Nop>
+
+nnoremap <Up> <Nop>
+inoremap <Up> <Nop>
+vnoremap <Up> <Nop>
+" cnoremap <Up> <Nop>
+
+nnoremap <Down> <Nop>
+inoremap <Down> <Nop>
+vnoremap <Down> <Nop>
+" cnoremap <Down> <Nop>
+
+" Ctags auto-updating
+function! UpdateTags(path)
+	let tags_file = findfile("tags", ".;")
+	let command_string = "ctags -a -f '" . tags_file . "' '" . a:path . "'"
+	let job = jobstart(command_string)
+endfunction
+autocmd BufWritePost * call UpdateTags(expand("<afile>"))
+
+" Extensions
+lua << END
+require('lualine').setup {
+	options = {
+		theme = 'gruvbox',
+		icons_enabled = false
+	}
+}
+
+require('nvim-treesitter.configs').setup {
+	auto_install = false,
+	highlight = {
+		enable = true
+	},
+	incremental_selection = {
+		enable = true
+	},
+	indent = {
+		enable = true
+	}
+}
+
+-- Mappings.
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
+END
+
+let g:ale_linters = { 'tex': [ 'chktex' ] }
+let g:ale_fixers = { 'json': [ 'jq' ] }
+
+let g:vimtex_compiler_latexmk = {
+	\ 'build_dir': './bin/',
+	\ 'callback': 1,
+	\ 'continuous': 1,
+	\ 'executable': 'latexmk',
+	\ 'hooks': [],
+	\ 'options': [
+	\   '-verbose',
+	\   '-file-line-error',
+	\   '-synctex=1',
+	\   '-interaction=nonstopmode',
+	\ ],
+	\}
+let g:vimtex_compiler_latexmk_engines = {
+	\ '_': '-xelatex',
+	\}
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_syntax_enabled = 'false'
