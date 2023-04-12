@@ -89,6 +89,7 @@ autocmd BufWritePost * call UpdateTags(expand("<afile>"))
 
 " Extensions
 lua << END
+require('gitsigns').setup()
 require('lualine').setup {
 	options = {
 		theme = 'gruvbox',
