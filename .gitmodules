@@ -28,3 +28,6 @@
 [submodule "vim/pack/bundle/start/nvim-cmp"]
 	path = vim/pack/bundle/start/nvim-cmp
 	url = https://github.com/hrsh7th/nvim-cmp.git
+[submodule "vim/pack/bundle/start/gruvbox.nvim"]
+	path = vim/pack/bundle/start/gruvbox.nvim
+	url = https://github.com/ellisonleao/gruvbox.nvim.git

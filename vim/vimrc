@@ -27,15 +27,6 @@ set conceallevel=2		" Enable conceled marked chars to be hidden
 set noshowmode
 set laststatus=2
 
-augroup HIGHLIGHT_OVERRIDES
-	autocmd!
-	autocmd ColorScheme * highlight CursorLineNr cterm=bold
-				\ | highlight Comment cterm=italic
-				\ | highlight Normal ctermbg=NONE guibg=NONE
-				\ | highlight NonText ctermbg=NONE guibg=NONE
-augroup END
-colorscheme gruvbox
-
 " for folding, za to toggle
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
@@ -59,10 +50,16 @@ augroup END
 
 " Extensions
 lua << END
+require('gruvbox').setup({
+	transparent_mode = true
+})
+vim.o.background = 'dark'
+vim.cmd("colorscheme gruvbox")
+
 require('gitsigns').setup{}
 require('lualine').setup {
 	options = {
-		theme = 'gruvbox',
+		theme = 'auto',
 		icons_enabled = false
 	}
 }
