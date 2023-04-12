@@ -52,9 +52,6 @@ $mod+e exec \
 Ctrl+grave exec \
 	'$HOME/Scripts/clipboard_history_selector.sh'
 
-#$mod+tab exec rofi -show window
-#$mod+tab focus next
-
 # change focus
 $mod+$left focus left
 $mod+$down focus down
@@ -118,6 +115,9 @@ $mod+Shift+7 move container to workspace $ws7
 $mod+Shift+8 move container to workspace $ws8
 $mod+Shift+9 move container to workspace $ws9
 $mod+Shift+0 move container to workspace $ws10
+
+$mod+Tab workspace next
+$mod+Shift+Tab workspace prev
 
 # reload the configuration file
 $mod+Shift+c reload
