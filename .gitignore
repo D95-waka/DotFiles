@@ -3,6 +3,7 @@
 
 !^.gitignore
 !vim/vimrc
+!/nvim/**
 !alacritty/**
 !sway/**
 !/mpd/mpd.conf
