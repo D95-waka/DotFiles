@@ -57,10 +57,12 @@ function cpu {
 }
 
 function network {
+	local color='#ffffff'
 	local logo=''
 	local network_name="$(iwgetid -r)"
 	if [[ "$network_name" == "" ]]; then
 		logo='󰖪'
+		color='#ffff00'
 	fi
 
 	local vpn_logo=''
@@ -70,13 +72,15 @@ function network {
 		nmcli connection show "$vpn_connection_name" |
 			grep -q 'GENERAL.STATE.*activated$' &&
 			vpn_logo=''
+	else
+		color='#ff0000'
 	fi
 
 	if rfkill list all | grep yes &> /dev/null; then
 		logo='󰀝'
 	fi
 
-	printf '{ "full_text": "%s %s", "separator": false }, { "full_text": "%s", "min_width": 50 }' "$logo" "$vpn_logo" "$network_name"
+	printf '{ "full_text": "%s %s", "color": "%s", "separator": false }, { "full_text": "%s", "min_width": 50 }' "$logo" "$vpn_logo" "$color" "$network_name"
 }
 
 function network_statistics {

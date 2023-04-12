@@ -10,3 +10,4 @@
 !/mpd/mpd.conf
 !zathura/**
 !wallpapers/**
+!mpv/*
