@@ -127,7 +127,8 @@ XF86AudioRaiseVolume exec \
 	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
 
 XF86AudioMute exec \
-	'$HOME/Scripts/binding_cli.sh mute'
+	notify-send -t 500 "$(amixer sset Master toggle | \
+	awk '$2 == "Left:" { if ($6 == "[off]") printf ""; else printf "" }')"
 
 Shift+XF86AudioLowerVolume exec \
 	notify-send -t 500 "󰢳	$(amixer sset Capture 5%- | \
@@ -137,24 +138,37 @@ Shift+XF86AudioRaiseVolume exec \
 	notify-send -t 500 "󰢴	$(amixer sset Capture 5%+ | \
 	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
 
+# Mic mute
 $mod+m exec \
-	'$HOME/Scripts/binding_cli.sh mic_mute'
+	notify-send -t 500 "$(amixer sset Capture toggle | \
+	awk '$2 == "Left:" { if ($6 == "[off]") printf "󰍭"; else printf "󰍬" }')"
 
 # player controllers
 XF86AudioPlay exec \
-	'$HOME/Scripts/binding_cli.sh audio toggle'
+	'export MPD_HOST="master@$HOME/.mpd/socket"; \
+	mpc toggle; \
+	mpc sendmessage event_bump toggle'
 
 XF86AudioStop exec \
-	'$HOME/Scripts/binding_cli.sh audio clear'
+	'export MPD_HOST="master@$HOME/.mpd/socket"; \
+	mpc stop; \
+	mpc sendmessage event_bump stop'
 
 XF86AudioNext exec \
-	'$HOME/Scripts/binding_cli.sh audio next'
+	'export MPD_HOST="master@$HOME/.mpd/socket"; \
+	mpc next; \
+	mpc sendmessage event_bump next'
 
 XF86AudioPrev exec \
-	'$HOME/Scripts/binding_cli.sh audio prev'
+	'export MPD_HOST="master@$HOME/.mpd/socket"; \
+	mpc prev; \
+	mpc sendmessage event_bump prev'
 
 XF86TouchpadToggle exec \
-	'$HOME/Scripts/binding_cli.sh touchpad'
+	swaymsg input type:touchpad events toggle | \
+	notify-send -t 3000 "$(swaymsg -t get_inputs | \
+		jq -r '.[0].libinput.send_events | \
+		if . == \"enabled\" then "󰍽" else (if . == "disabled" then "󰍾" else "󰎀" end) end')"
 
 $mod+c exec \
 	'$HOME/.config/sway/lock.sh capture blur lock clean suspend'
@@ -176,13 +190,16 @@ $mod+space exec \
 
 #Brightness controllers
 XF86MonBrightnessUp exec \
-	'$HOME/Scripts/binding_cli.sh brightness inc 5'
+	light -A 5% | \
+	notify-send -t 500 "󰃟	$(light -g | sed 's/\..*//')%"
 
 XF86MonBrightnessDown exec \
-	'$HOME/Scripts/binding_cli.sh brightness dec 5'
+	light -U 5% | \
+	notify-send -t 500 "󰃟	$(light -g | sed 's/\..*//')%"
 
 XF86ScreenSaver exec \
-	'$HOME/Scripts/binding_cli.sh screen_toggle'
+	sh -c 'if [[ "$(light)" == "0.00" ]]; then light -I; else light -O; light -S 0; fi'
+
 }
 
 # vim: set syntax=sh
