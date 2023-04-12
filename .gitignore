@@ -7,3 +7,4 @@
 !alacritty/**
 !sway/**
 !/mpd/mpd.conf
+!zathura/**
