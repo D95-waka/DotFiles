@@ -106,7 +106,7 @@ function volume {
 	local logo="$(pactl list sinks | awk '
 		$1 == "device.icon_name" {
 			gsub(/"/, "", $3)
-			device_icon = "$3"
+			device_icon = $3
 		}
 
 		$1 == "Active" {
