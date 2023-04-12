@@ -100,16 +100,25 @@ function datetime {
 
 function volume {
 	local logo="$(pactl list sinks | awk '
+		$1 == "device.icon_name" {
+			gsub(/"/, "", $3)
+			device_icon = "$3"
+		}
+
 		$1 == "Active" {
-			if ($3 == "analog-output-speaker") {
+			port = $3
+		}
+
+		END {
+			if (port == "analog-output-speaker") {
 				printf "%s", "󰓃"
-			} else if ($3 == "analog-output-headphones") {
+			} else if (port == "analog-output-headphones") {
 				printf "%s", "󰋋"
+			} else if (device_icon == "audio-headset-bluetooth") {
+				printf "%s", "󰂰"
 			} else {
-				printf "%s", $3
+				printf "%s", ""
 			}
-			
-			exit
 		}')"
 
 	local score="$(amixer sget Master | awk '
