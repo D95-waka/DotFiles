@@ -22,3 +22,6 @@
 [submodule "vim/pack/bundle/start/vimtex"]
 	path = vim/pack/bundle/start/vimtex
 	url = https://github.com/lervag/vimtex.git
+[submodule "vim/pack/bundle/start/lualine.nvim"]
+	path = vim/pack/bundle/start/lualine.nvim
+	url = https://github.com/nvim-lualine/lualine.nvim.git
