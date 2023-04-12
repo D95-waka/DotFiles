@@ -119,23 +119,23 @@ $mod+Shift+n exec \
 # Volume keys
 
 XF86AudioLowerVolume exec \
-	'amixer sset Master 5%-; \
-	~/Scripts/notification_templates.sh volume'
-	
+	notify-send -t 500 "	$(amixer sset Master 5%- | \
+	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
+
 XF86AudioRaiseVolume exec \
-	'amixer sset Master 5%+; \
-	~/Scripts/notification_templates.sh volume'
+	notify-send -t 500 "	$(amixer sset Master 5%+ | \
+	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
 
 XF86AudioMute exec \
 	'$HOME/Scripts/binding_cli.sh mute'
 
 Shift+XF86AudioLowerVolume exec \
-	'amixer sset Capture 5%-; \
-	~/Scripts/notification_templates.sh mic_volume'
+	notify-send -t 500 "󰢳	$(amixer sset Capture 5%- | \
+	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
 
 Shift+XF86AudioRaiseVolume exec \
-	'amixer sset Capture 5%+; \
-	~/Scripts/notification_templates.sh mic_volume'
+	notify-send -t 500 "󰢴	$(amixer sset Capture 5%+ | \
+	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
 
 $mod+m exec \
 	'$HOME/Scripts/binding_cli.sh mic_mute'
@@ -171,8 +171,8 @@ Print exec \
 
 #Change to next language.
 $mod+space exec \
-	'~/Scripts/notification_templates.sh language'
-	#'~/Scripts/keyboard_next.sh; \
+	notify-send -t 500 \
+		"󰗊	$(swaymsg -t get_inputs -r | jq '.[1].xkb_active_layout_name' -r | sed 's/ .*$//')"
 
 #Brightness controllers
 XF86MonBrightnessUp exec \

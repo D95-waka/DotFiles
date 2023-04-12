@@ -1,0 +1,14 @@
+layer=overlay
+width=200
+padding=10, 10, 10, 10
+text-alignment=left
+
+# style
+background-color=#1d2021d0
+border-color=#d4be98
+text-color=#d4be98
+font=universal 14
+icons=0
+
+[urgency=high]
+text-color=#ea6962
