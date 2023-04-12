@@ -42,7 +42,7 @@ function battery {
 			color = "#00ff00"
 		}
 
-		printf "{ \"full_text\": \"%s\", \"color\": \"%s\", \"separator\": false }, { \"full_text\": \"%s%%\" }", icon, color, q
+		printf "{ \"full_text\": \"%s\", \"color\": \"%s\", \"separator\": false }, { \"full_text\": \"%s%%\", \"min_width\": 50 }", icon, color, q
 	}'
 }
 
@@ -50,7 +50,7 @@ source ~/.config/sway/cpu_retrieve_functions.sh
 _retrieve_cpu_init 
 function cpu {
 	local cpu_value="$(retrieve_cpu)"
-	printf '{ "full_text": " %s%%" }' "$cpu_value"
+	printf '{ "full_text": " %s%%", "min_width": 50 }' "$cpu_value"
 }
 
 function network {
@@ -70,9 +70,9 @@ function network {
 
 	if rfkill list all | grep yes &> /dev/null; then
 		# airplane mode
-		printf '󰀝 '
+		printf '{ "full_text": "󰀝 ", "color": "#eeeeee", "min_width": 50 }' "$network_name" "$vpn_status"
 	else
-		printf '{ "full_text": "%s%s" }' "$network_name" "$vpn_status"
+		printf '{ "full_text": "%s%s", "min_width": 50 }' "$network_name" "$vpn_status"
 	fi
 }
 
@@ -87,7 +87,7 @@ function network_statistics {
 
 	local __download_speed="$(numfmt --to=iec --suffix=B $(( __current_download_size - __last_download_size )))"
 	local __upload_speed="$(numfmt --to=iec --suffix=B $(( __current_upload_size - __last_upload_size )))"
-	printf '{ "full_text": "󰇚 %s 󰕒 %s", "min_width": 100 }' "$__download_speed" "$__upload_speed"
+	printf '{ "full_text": "󰇚 %s 󰕒 %s", "min_width": 150 }' "$__download_speed" "$__upload_speed"
 	echo $__current_download_size $__current_upload_size > $tmp_helper
 }
 
@@ -115,16 +115,17 @@ function volume {
 			exit
 		}' |
 			sed 's/\[\|\]//g')"
-	printf '{ "full_text": "%s %s" }' $logo $score
+	printf '{ "full_text": "%s %s", "min_width": 50 }' $logo $score
 }
 
 function playing {
 	local current="$(mpc current -f '%title% by %artist%' 2> /dev/null)"
-	if [[ "$current" != '' ]]; then
-		printf "  %s" "$current"
-	else
-		printf '{ "full_text": "%s" }' '󰝛 '
+	local logo='  '
+	if [[ "$current" == '' ]]; then
+		logo='󰝛 '
 	fi
+
+	printf '{ "full_text": "%s%s", "min_width": 50 }' "$logo" "$current"
 }
 
 function memory {
@@ -146,7 +147,7 @@ function memory {
 		}
 
 		END {
-			printf "{ \"full_text\": \"󰍛 %d%%\" }", (mem_total - mem_free + swap_total - swap_free) / mem_total * 100
+			printf "{ \"full_text\": \"󰍛 %d%%\", \"min_width\": 50 }", (mem_total - mem_free + swap_total - swap_free) / mem_total * 100
 		}'
 }
 
