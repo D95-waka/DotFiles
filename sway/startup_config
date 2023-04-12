@@ -21,9 +21,8 @@ exec ' \
 	firefox &'
 
 bar 1 {
-	font universal
-	#gaps 4
-	modifier "Mod1+Mod4"
+	font "Iosevka Nerd Font Regular"
+	modifier "Mod4+Shift"
 	mode hide
 	position top
 	separator_symbol @

@@ -4,7 +4,8 @@ function battery {
 	upower -i /org/freedesktop/UPower/devices/battery_BAT0 |
 	awk '
 	$0 ~ /perc/ {
-		q = $2
+		gsub(/%$/, "", $2)
+		q = $2 + 0
 	}
 
 	$0 ~ /state/ {
@@ -12,19 +13,33 @@ function battery {
 	}
 
 	END {
-		print state, q
+		#print state, q
 
-		#if (state == "charging") {
-		#	color = "'"${color_place[2]}"'"
-		#} else if (q - 6 < 0) {
-		#	color = "'"${color_place_bold}${color_place[1]}"'"
-		#} else if (q - 11 < 0) {
-		#	color = "'"${color_place[1]}"'"
-		#} else {
-		#	#color = "'"${color_clear_place}"'"
-		#}
+		if (state == "charging") {
+			icon = ""
+		} else if (q < 10) {
+			icon = "󰁺"
+		} else if (q < 20) {
+			icon = "󰁻"
+		} else if (q < 30) {
+			icon = "󰁼"
+		} else if (q < 40) {
+			icon = "󰁽"
+		} else if (q < 50) {
+			icon = "󰁾"
+		} else if (q < 60) {
+			icon = "󰁿"
+		} else if (q < 70) {
+			icon = "󰂀"
+		} else if (q < 80) {
+			icon = "󰂁"
+		} else if (q < 90) {
+			icon = "󰂂"
+		} else {
+			icon = "󰁹"
+		}
 
-		#printf "%s%s\n", color, q
+		printf "%s %s%%", icon, q
 	}'
 }
 
@@ -32,13 +47,13 @@ source ~/.config/sway/cpu_retrieve_functions.sh
 _retrieve_cpu_init 
 function cpu {
 	local cpu_value="$(retrieve_cpu)"
-	printf "%s%%" "$cpu_value"
+	printf " %s%%" "$cpu_value"
 }
 
 function network {
-	local network_name="$(iwgetid -r)"
+	local network_name="  $(iwgetid -r)"
 	if [[ "$network_name" == "" ]]; then
-		network_name="off"
+		network_name="󰖪 "
 	fi
 
 	local vpn_status=""
@@ -50,9 +65,11 @@ function network {
 			vpn_status=" vpn"
 	fi
 
-	printf "%s%s" "$network_name" "$vpn_status"
 	if rfkill list all | grep yes &> /dev/null; then
-		printf ' airplane'
+		# airplane mode
+		printf '󰀝 '
+	else
+		printf "%s%s" "$network_name" "$vpn_status"
 	fi
 }
 
@@ -67,26 +84,41 @@ function network_statistics {
 
 	local __download_speed="$(numfmt --to=iec --suffix=B $(( __current_download_size - __last_download_size )))"
 	local __upload_speed="$(numfmt --to=iec --suffix=B $(( __current_upload_size - __last_upload_size )))"
-	printf '%s\t%s' "$__download_speed" "$__upload_speed"
+	printf '󰇚 %s\t󰕒 %s' "$__download_speed" "$__upload_speed"
 	echo $__current_download_size $__current_upload_size > $tmp_helper
 }
 
 function datetime {
-	date +'%d/%m/%y %H:%M:%S'
+	date +'  %d/%m/%y %H:%M:%S'
 }
 
 function volume {
-	local volume="$(amixer sget Master | grep -o '[0-9]*%' | head -1)"
-	local audio_device="$(pactl list sinks | sed -n 's/\t*Active Port:.*-\(\w\).*/\1/p' | head -1)"
-	printf '%s %s' "$volume" "$audio_device"
+	pactl list sinks | awk '
+		$1 == "Active" {
+			if ($3 == "analog-output-speaker") {
+				printf "%s", "󰓃 "
+			} else if ($3 == "analog-output-headphones") {
+				printf "%s", "󰋋 "
+			} else {
+				printf "%s", $3
+			}
+			
+			exit
+		}'
+
+	amixer sget Master | awk '
+		$1 == "Front" {
+			printf "%s%%", $4
+			exit
+		}'
 }
 
 function playing {
 	local current="$(mpc current -f '%title% by %artist%' 2> /dev/null)"
-	if [[ "$current" == "" ]]; then
-		echo ''
+	if [[ "$current" != '' ]]; then
+		printf " %s" "$current"
 	else
-		echo "$current"
+		printf "%s" '󰝛'
 	fi
 }
 
@@ -109,14 +141,14 @@ function memory {
 		}
 
 		END {
-			printf "%d%%", (mem_total - mem_free + swap_total - swap_free) / mem_total * 100
+			printf "󰍛 %d%%", (mem_total - mem_free + swap_total - swap_free) / mem_total * 100
 		}'
 }
 
 while true; do
 	printf "\n%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s" \
-		"$(battery)" "$(cpu)" "$(network)" \
-		"$(network_statistics)" "$(datetime)" "$(volume)" \
-		"$(playing)" "$(memory)"
+		"$(battery)" "$(cpu)" "$(memory)" "$(network)" \
+		"$(network_statistics)" "$(volume)" \
+		"$(playing)" "$(datetime)"
 	sleep 1
 done
