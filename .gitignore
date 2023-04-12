@@ -4,3 +4,4 @@
 !^.gitignore
 !vim/vimrc
 !alacritty/**
+!sway/**
