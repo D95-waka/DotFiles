@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+LOOP_SPAN=0.5
+LOOP_SPAN_INVERTED=$(echo "1/$LOOP_SPAN" | bc -l)
+
 function battery {
 	upower -i /org/freedesktop/UPower/devices/battery_BAT0 |
 	awk '
@@ -92,8 +95,9 @@ function network_statistics {
 	local __current_download_size="${__proc_net_data[0]}"
 	local __current_upload_size="${__proc_net_data[1]}"
 
-	local __download_speed="$(numfmt --to=iec --suffix=B $(( __current_download_size - __last_download_size )))"
-	local __upload_speed="$(numfmt --to=iec --suffix=B $(( __current_upload_size - __last_upload_size )))"
+	local __download_speed="$(numfmt --to=iec --suffix=B $(echo "$LOOP_SPAN_INVERTED * ($__current_download_size - $__last_download_size)" | bc -l))"
+	local __upload_speed="$(numfmt --to=iec --suffix=B $(echo "$LOOP_SPAN_INVERTED * ($__current_upload_size - $__last_upload_size)" | bc -l))"
+	local ="$(numfmt --to=iec --suffix=B $(( __current_upload_size - __last_upload_size )))"
 	printf '{ "full_text": "󰇚", "separator": false }, { "full_text": "%s", "min_width": 50 }, { "full_text": "󰕒", "separator": false }, { "full_text": "%s", "min_width": 50 }' "$__download_speed" "$__upload_speed"
 	echo $__current_download_size $__current_upload_size > $tmp_helper
 }
@@ -182,5 +186,5 @@ while true; do
 		"$(battery)" "$(cpu)" "$(memory)" "$(network)" \
 		"$(network_statistics)" "$(playing)" \
 		"$(volume)" "$(datetime)" "$(logo)"
-	sleep 1
+	sleep $LOOP_SPAN
 done
