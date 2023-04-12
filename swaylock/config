@@ -1,7 +1,7 @@
 ignore-empty-password
 show-keyboard-layout
 bs-hl-color=ff0000
-font=universal
+font=monospace
 font-size=16
 scaling=solid_color
 image=~/.config/wallpapers/gruvbox_pinguin.png

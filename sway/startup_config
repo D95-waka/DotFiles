@@ -20,7 +20,7 @@ exec ' \
 	pidof -q firefox || firefox &'
 
 bar 1 {
-	font "Iosevka Nerd Font Regular"
+	font monospace 12
 	modifier "Mod4+Shift"
 	mode hide
 	position top

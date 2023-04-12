@@ -7,7 +7,7 @@ smart_borders on
 default_border pixel 1
 floating_minimum_size 24 x 24
 
-font universal 8
+font monospace 8
 seat seat0 xcursor_theme Adwaita 12
 output * bg '~/.config/wallpapers/gruvbox_pinguin.png' fill
 

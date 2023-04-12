@@ -2,10 +2,11 @@
 
 LOOP_SPAN=0.5
 LOOP_SPAN_INVERTED=$(echo "1/$LOOP_SPAN" | bc -l)
+BLINK=0
 
 function battery {
 	upower -i /org/freedesktop/UPower/devices/battery_BAT0 |
-	awk '
+	awk -v blink=$BLINK '
 	$0 ~ /perc/ {
 		gsub(/%$/, "", $2)
 		q = $2 + 0
@@ -20,10 +21,12 @@ function battery {
 		if (state == "charging") {
 			icon = "󰂄"
 			color = "#dddd00"
-		} else if (q < 10) {
+		} else if (q <= 10) {
 			icon = "󰁺"
-			color = "#ff0000"
-		} else if (q < 20) {
+			if (blink == 1) {
+				color = "#ff0000"
+			}
+		} else if (q <= 20) {
 			icon = "󰁻"
 			color = "#ff0000"
 		} else if (q < 30) {
@@ -187,5 +190,6 @@ while true; do
 		"$(battery)" "$(cpu)" "$(memory)" "$(network)" \
 		"$(network_statistics)" "$(playing)" \
 		"$(volume)" "$(datetime)" "$(logo)"
+	BLINK=$(( 1 - BLINK ))
 	sleep $LOOP_SPAN
 done

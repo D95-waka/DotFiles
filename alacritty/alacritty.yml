@@ -22,22 +22,6 @@ cursor:
     unfocused_hollow: true
 
 font:
-    normal:
-        family: universal
-        style: Regular
-
-    bold:
-        family: universal
-        style: Bold
-
-    italic:
-        family: universal
-        style: Italic
-
-    bold_italic:
-        family: universal
-        style: Bold Italic
-
     size: 12
     offset:
         x: 0
