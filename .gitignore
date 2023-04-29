@@ -19,3 +19,4 @@ fish/functions/_*
 !gtk-3.0/**
 !gtk-4.0/**
 !scripts/**
+!ranger/**
