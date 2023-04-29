@@ -23,7 +23,7 @@ mode "resize" bindsym {
 bindsym --to-code {
 
 $mod+grave exec \
-	$TERMINAL 
+	$TERMINAL ~
 
 $mod+w kill
 
@@ -34,7 +34,7 @@ $mod+e exec \
 	'exec $HOME/.config/scripts/binding_cli.sh bemenu_locate'
 
 Ctrl+grave exec \
-	'$HOME/.config/scripts/clipboard_history_selector.sh'
+	'copyq show'
 
 # change focus
 $mod+$left focus left

@@ -3,6 +3,7 @@
 fish_vi_key_bindings
 
 # environment variables
+export TERMINAL=kitty
 export MPD_HOST="master@$HOME/.mpd/socket"
 export EDITOR=vim
 export MANPAGER='nvim +Man!'

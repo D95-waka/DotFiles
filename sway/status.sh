@@ -78,8 +78,6 @@ function network {
 		nmcli connection show "$vpn_connection_name" |
 			grep -q 'GENERAL.STATE.*activated$' &&
 			vpn_logo=''
-	else
-		color='#ff0000'
 	fi
 
 	if rfkill list all | grep yes &> /dev/null; then
@@ -95,7 +93,7 @@ function network_statistics {
 	IFS=' '
 	read __last_download_size __last_upload_size < $network_statistics_tmp_file
 
-	local __proc_net_data=($(cat /proc/net/dev | awk '$1 ~ /wlp3s0/ {print $2, $10;}'))
+	local __proc_net_data=($(cat /proc/net/dev | awk '$1 ~ /wlan0/ {print $2, $10;}'))
 	local __current_download_size="${__proc_net_data[0]}"
 	local __current_upload_size="${__proc_net_data[1]}"
 
@@ -104,6 +102,8 @@ function network_statistics {
 	local ="$(numfmt --to=iec --suffix=B $(( __current_upload_size - __last_upload_size )))"
 	printf '{ "full_text": "󰇚", "separator": false }, { "full_text": "%s", "min_width": 50 }, { "full_text": "󰕒", "separator": false }, { "full_text": "%s", "min_width": 50 }' "$__download_speed" "$__upload_speed"
 	echo $__current_download_size $__current_upload_size > $network_statistics_tmp_file
+	echo $__current_download_size $__current_upload_size > $network_statistics_tmp_file
+	cat $network_statistics_tmp_file &>/dev/stderr
 }
 
 function datetime {

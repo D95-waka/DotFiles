@@ -5,6 +5,7 @@ focus_follows_mouse no
 input * {
 	xkb_options "grp:win_space_toggle,caps:escape_shifted_capslock"
 	xkb_layout "us,il"
+	xkb_variant "altgr-intl,"
 	dwt disabled
 	tap enabled
 	pointer_accel 0.35
@@ -12,6 +13,7 @@ input * {
 
 exec_always 'killall mako; mako &'
 exec_always '~/.config/scripts/info_daemon/info_daemon.sh'
+exec_always 'copyq exit; copyq'
 
 # startup apps
 exec ' \
