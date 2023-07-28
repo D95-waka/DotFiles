@@ -3,6 +3,7 @@
 
 !^.gitignore
 !vim/vimrc
+!vim/snippets/**
 !/nvim/**
 !alacritty/**
 !sway/**

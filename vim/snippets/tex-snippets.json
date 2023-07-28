@@ -1,0 +1,12 @@
+{
+    "power": {
+        "prefix": "pow",
+        "body": "{(${2:x + 1})}^${1:2}",
+        "description": "item in power"
+    },
+    "limit": {
+        "prefix": "lim",
+        "body": "\\lim_{${1:x} \\to ${2:\\infty}} ",
+        "description": "limit"
+    }
+}
