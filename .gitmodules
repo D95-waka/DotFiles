@@ -37,3 +37,9 @@
 [submodule "vim/pack/bundle/start/vim-fugitive"]
 	path = vim/pack/bundle/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule "vim/pack/bundle/start/friendly-snippets"]
+	path = vim/pack/bundle/start/friendly-snippets
+	url = https://github.com/rafamadriz/friendly-snippets.git
+[submodule "vim/pack/bundle/start/cmp_luasnip"]
+	path = vim/pack/bundle/start/cmp_luasnip
+	url = https://github.com/saadparwaiz1/cmp_luasnip.git

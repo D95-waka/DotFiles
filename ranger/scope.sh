@@ -167,15 +167,15 @@ handle_image() {
              exit 1;;
 
 		# tex
-         *tex)
-		 THE_PDF="$(echo "$FILE_PATH" | sed 's/\([^/]*\)\.tex$/bin\/\1.pdf/g')"
-             pdftoppm -f 1 -l 1 \
-                      -scale-to-x "${DEFAULT_SIZE%x*}" \
-                      -scale-to-y -1 \
-                      -singlefile \
-                      -jpeg -tiffcompression jpeg \
-                      -- "${THE_PDF}" "${IMAGE_CACHE_PATH%.*}" \
-                 && exit 6 || exit 1;;
+         # *tex)
+		 # THE_PDF="$(echo "$FILE_PATH" | sed 's/\([^/]*\)\.tex$/bin\/\1.pdf/g')"
+         #     pdftoppm -f 1 -l 1 \
+         #              -scale-to-x "${DEFAULT_SIZE%x*}" \
+         #              -scale-to-y -1 \
+         #              -singlefile \
+         #              -jpeg -tiffcompression jpeg \
+         #              -- "${THE_PDF}" "${IMAGE_CACHE_PATH%.*}" \
+         #         && exit 6 || exit 1;;
         # PDF
          application/pdf)
              pdftoppm -f 1 -l 1 \
