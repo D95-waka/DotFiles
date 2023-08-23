@@ -8,5 +8,25 @@
         "prefix": "lim",
         "body": "\\lim_{${1:x} \\to ${2:\\infty}} ",
         "description": "limit"
+    },
+    "sum": {
+        "prefix": "sum",
+        "body": "\\sum_{${1:n = 1}}^{${2:\\infty}} ",
+        "description": "sum"
+    },
+    "integral": {
+        "prefix": "int",
+        "body": "\\int_{${1:0}}^{${2:\\infty}} ",
+        "description": "integral"
+    },
+    "frac": {
+        "prefix": "frac",
+        "body": "\\frac{${1:x}}{${2}}",
+        "description": "frac"
+    },
+    "infinity": {
+        "prefix": "8",
+        "body": "\\infty",
+        "description": "infinity symbol"
     }
 }

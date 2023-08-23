@@ -23,7 +23,7 @@ mode "resize" bindsym {
 bindsym --to-code {
 
 $mod+grave exec \
-	$TERMINAL ~
+	$TERMINAL
 
 $mod+w kill
 
