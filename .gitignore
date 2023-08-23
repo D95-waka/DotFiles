@@ -21,3 +21,4 @@ fish/functions/_*
 !gtk-4.0/**
 !scripts/**
 !ranger/**
+!wezterm/**
