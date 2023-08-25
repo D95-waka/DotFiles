@@ -18,7 +18,7 @@ config.inactive_pane_hsb = {
   saturation = 0.9,
   brightness = 0.8
 }
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.7
 config.font = wezterm.font_with_fallback{
 	'monospace',
 	'Liberation Mono'

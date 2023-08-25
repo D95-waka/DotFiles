@@ -55,7 +55,7 @@ function battery {
 	}'
 }
 
-source ~/.config/sway/cpu_retrieve_functions.sh
+source ~/.config/sway/scripts/cpu_retrieve_functions.sh
 _retrieve_cpu_init 
 function cpu {
 	local cpu_value="$(retrieve_cpu)"

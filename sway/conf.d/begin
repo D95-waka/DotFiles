@@ -29,7 +29,7 @@ bar 1 {
 	mode hide
 	position top
 	separator_symbol |
-	status_command ~/.config/sway/status.sh
+	status_command ~/.config/sway/scripts/status.sh
 }
 
 set $up k

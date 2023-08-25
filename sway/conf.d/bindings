@@ -171,7 +171,7 @@ XF86TouchpadToggle exec \
 		if . == \"enabled\" then "󰍽" else (if . == "disabled" then "󰍾" else "󰎀" end) end')"
 
 $mod+c exec \
-	'$HOME/.config/sway/lock.sh capture blur lock clean suspend'
+	'$HOME/.config/sway/scripts/lock.sh capture blur lock clean suspend'
 
 #Capture options
 Shift+Print exec \
