@@ -1,9 +1,6 @@
 # Sway configuration file
 # For more info, see man 5 sway
 
-include startup_config
-include bindings_config
-include style_config
-include behavior_config
+include conf.d/*
 
 # vim: set syntax=sh
