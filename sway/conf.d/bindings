@@ -28,7 +28,7 @@ $mod+grave exec \
 $mod+w kill
 
 $mod+r exec \
-	wofi --show drun
+	fuzzel
 
 $mod+e exec \
 	'exec $HOME/.config/scripts/binding_cli.sh bemenu_locate'

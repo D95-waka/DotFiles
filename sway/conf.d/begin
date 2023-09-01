@@ -24,12 +24,9 @@ exec ' \
 	pidof -q firefox || firefox &'
 
 bar 1 {
-	font monospace 12
 	modifier "Mod4+Shift"
 	mode hide
-	position top
-	separator_symbol |
-	status_command ~/.config/sway/scripts/status.sh
+	swaybar_command waybar
 }
 
 set $up k
