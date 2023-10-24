@@ -39,7 +39,7 @@
     "temperature": {
         "critical-threshold": 80,
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format-icons": ["󱃃", "󰔏", "󱃂"]
     },
     "backlight": {
         "format": "{percent}% {icon}",
@@ -51,7 +51,7 @@
             "critical": 10
         },
         "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
+        "format-charging": "{capacity}% 󰂄",
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
         "format-icons": ["", "", "", "", ""]
@@ -61,9 +61,9 @@
     },
     "network": {
         "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
+        "format-ethernet": "{ipaddr}/{cidr} 󰈀",
         "tooltip-format": "{ifname} via {gwaddr}, {bandwidthDownBytes} 󰇚 {bandwidthUpBytes} 󰕒",
-        "format-linked": "{ifname} (No IP) ",
+        "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },

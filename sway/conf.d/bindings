@@ -186,7 +186,7 @@ Print exec \
 #Change to next language.
 $mod+space exec \
 	notify-send -h string:x-dunst-stack-tag:binds -t 500 \
-		"󰗊	$(swaymsg -t get_inputs -r | jq '.[1].xkb_active_layout_name' -r | sed 's/ .*$//')"
+		"󰗊	$(swaymsg -t get_inputs | jq -r '[.[] | select( .type == "keyboard" )] | .[0].xkb_active_layout_name' | sed 's/ .*$//')"
 
 #Brightness controllers
 XF86MonBrightnessUp exec \
