@@ -1,25 +1,23 @@
-" behevior settings
-set autoindent
-filetype plugin indent on
-set tabstop=4
-set shiftwidth=4
-set modeline
-set modelines=5
-set wildmenu
-set formatoptions+=r
-set smartcase
-set incsearch		" Live-mathing of the search as it's being types
-set mouse=nvicr		" Allow mouse being used for cursor relocation and marks
-set scrolloff=1
-set undodir=~/.local/state/nvim/undo/
-set undofile
-filetype plugin on
-let mapleader = " "
-noremap <leader>y "+y
-noremap <leader>p "+p
-
 lua << END
--- Looks settins
+-- Behavior settongs
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.modeline = true
+vim.opt.modelines = 5
+vim.opt.formatoptions:append('r')
+vim.opt.wildmenu = true
+vim.opt.smartcase = true
+vim.opt.incsearch = true
+vim.opt.mouse = 'nvicr'
+vim.opt.scrolloff = 1
+vim.opt.undofile = true
+vim.opt.undodir = '~/.local/state/nvim/undo/'
+vim.cmd('filetype plugin on')
+vim.g.mapleader = ' '
+vim.keymap.set('n', '<Leader>y', '"+y')
+vim.keymap.set('n', '<Leader>p', '"+p')
+
+-- Looks settings
 vim.cmd("syntax on")
 vim.opt.number = true
 vim.opt.relativenumber = true
