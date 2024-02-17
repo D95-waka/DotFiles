@@ -52,22 +52,6 @@ let g:vimtex_syntax_enabled = 0
 let g:vimtex_syntax_conceal_disable = 1
 
 lua << END
-require('gruvbox').setup({
-	transparent_mode = true
-})
-vim.o.background = 'dark'
-vim.cmd("colorscheme gruvbox")
-
-require('gitsigns').setup{}
-require('lualine').setup {
-	options = {
-		theme = 'auto',
-		icons_enabled = true,
-		section_separators = { left = '', right = '' },
-		component_separators = { left = '', right = '' }
-	}
-}
-
 require('nvim-treesitter.configs').setup {
 	auto_install = false,
 	highlight = {
@@ -171,5 +155,47 @@ vim.keymap.set({"i", "s"}, "<C-E>", function()
 end, {silent = true})
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_vscode").lazy_load({paths = { "~/.config/vim/snippets"} })
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+local lazy_plugins = {
+	{
+		"ellisonleao/gruvbox.nvim",
+		priority = 1000,
+		config = true,
+		opts = {
+			transparent_mode = true
+		}
+	},
+	{ "lewis6991/gitsigns.nvim", opts = {} },
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			options = {
+				theme = 'auto',
+				icons_enabled = true,
+				section_separators = { left = '', right = '' },
+				component_separators = { left = '', right = '' }
+			}
+		}
+	}
+}
+require("lazy").setup(lazy_plugins)
+
+-- Theme
+vim.o.background = 'dark'
+vim.cmd("colorscheme gruvbox")
 
 END
