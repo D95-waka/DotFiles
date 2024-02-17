@@ -18,40 +18,45 @@ let mapleader = " "
 noremap <leader>y "+y
 noremap <leader>p "+p
 
-" syntax and number lines
-syntax on
-set number relativenumber
-set numberwidth=1
-" set encoding=utf8
-set conceallevel=2		" Enable conceled marked chars to be hidden
-set noshowmode
-set laststatus=2
-
-" for folding, za to toggle
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-set foldlevel=30
-
-" abbreviations
-set iskeyword+=#
-iabbrev #sh #!/usr/bin/env sh<CR>
-
-augroup SPECIAL_FILES
-	autocmd!
-	autocmd BufNewFile,BufRead *.rasi set syntax=css
-	autocmd BufWritePost */.config/sway/* silent !swaymsg reload
-augroup END
-
-augroup pencil
-	autocmd!
-	autocmd FileType markdown,mkd call pencil#init()
-	autocmd FileType text         call pencil#init()
-augroup END
-
-let g:vimtex_syntax_enabled = 0
-let g:vimtex_syntax_conceal_disable = 1
-
 lua << END
+-- Looks settins
+vim.cmd("syntax on")
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.numberwidth = 1
+vim.opt.conceallevel = 2
+vim.opt.showmode = false
+vim.opt.laststatus = 2
+
+-- Fold settings
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldlevel = 30
+
+-- Auto commands groups settings
+local specialsgroup = vim.api.nvim_create_augroup('specials', { clear = true })
+vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+	pattern = '*/.config/sway/*',
+	group = specialsgroup,
+	command = 'silent !swaymsg reload',
+})
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
+	pattern = '*.rasi',
+	group = specialsgroup,
+	command = 'set syntax=css',
+})
+
+local pencilgroup = vim.api.nvim_create_augroup('pencil', { clear = true })
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+	pattern = 'text',
+	group = pencilgroup,
+	command = 'call pencil#init()',
+})
+
+vim.g.vimtex_syntax_enabled = 0
+vim.g.vimtex_syntax_conceal_disable = 1
+
+-- Lazy nvim plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
