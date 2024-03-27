@@ -46,6 +46,7 @@
         "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "battery": {
+        "bat": "BAT0",
         "states": {
             "warning": 20,
             "critical": 10

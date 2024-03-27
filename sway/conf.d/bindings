@@ -119,16 +119,19 @@ $mod+Shift+n exec \
 # Volume keys
 
 XF86AudioLowerVolume exec \
-	notify-send -h string:x-dunst-stack-tag:binds -t 500 "	$(amixer sset Master 5%- | \
-	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 \
+	"	$(wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; wpctl get-volume @DEFAULT_AUDIO_SINK@ | \
+		awk '{ if ($3 == "[MUTED]") print \"mute\"; else print $2 * 100 \"%\"; }')"
 
 XF86AudioRaiseVolume exec \
-	notify-send -h string:x-dunst-stack-tag:binds -t 500 "	$(amixer sset Master 5%+ | \
-	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 \
+	"	$(wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; wpctl get-volume @DEFAULT_AUDIO_SINK@ | \
+		awk '{ if ($3 == "[MUTED]") print \"mute\"; else print $2 * 100 \"%\"; }')"
 
 XF86AudioMute exec \
-	notify-send -h string:x-dunst-stack-tag:binds -t 500 "$(amixer sset Master toggle | \
-	awk '$2 == "Left:" { if ($6 == "[off]") printf ""; else printf "" }')"
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 \
+	"	$(wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; wpctl get-volume @DEFAULT_AUDIO_SINK@ | \
+		awk '{ if ($3 == "[MUTED]") print \"mute\"; else print $2 * 100 \"%\"; }')"
 
 Shift+XF86AudioLowerVolume exec \
 	notify-send -h string:x-dunst-stack-tag:binds -t 500 "󰢳	$(amixer sset Capture 5%- | \

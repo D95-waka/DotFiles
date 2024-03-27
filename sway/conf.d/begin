@@ -8,7 +8,7 @@ input * {
 	xkb_variant "altgr-intl,"
 	dwt disabled
 	tap enabled
-	pointer_accel 0.35
+	pointer_accel 0.25
 }
 
 exec_always 'killall mako; mako &'
