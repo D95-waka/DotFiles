@@ -134,17 +134,19 @@ XF86AudioMute exec \
 		awk '{ if ($3 == "[MUTED]") print \"mute\"; else print $2 * 100 \"%\"; }')"
 
 Shift+XF86AudioLowerVolume exec \
-	notify-send -h string:x-dunst-stack-tag:binds -t 500 "󰢳	$(amixer sset Capture 5%- | \
-	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 \
+	"󰢳	$(wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-; wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | \
+		awk '{ if ($3 == "[MUTED]") print \"mute\"; else print $2 * 100 \"%\"; }')"
 
 Shift+XF86AudioRaiseVolume exec \
-	notify-send -h string:x-dunst-stack-tag:binds -t 500 "󰢴	$(amixer sset Capture 5%+ | \
-	awk '$2 == "Left:" { gsub(/\[|\]/, "", $5); print $5; }')"
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 \
+	"󰢴	$(wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+; wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | \
+		awk '{ if ($3 == "[MUTED]") print \"mute\"; else print $2 * 100 \"%\"; }')"
 
-# Mic mute
-$mod+m exec \
-	notify-send -h string:x-dunst-stack-tag:binds -t 500 "$(amixer sset Capture toggle | \
-	awk '$2 == "Left:" { if ($6 == "[off]") printf "󰍭"; else printf "󰍬" }')"
+XF86AudioMicMute exec \
+	notify-send -h string:x-dunst-stack-tag:binds -t 500 \
+	"󰍬	$(wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle; wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | \
+		awk '{ if ($3 == "[MUTED]") print \"mute\"; else print $2 * 100 \"%\"; }')"
 
 # player controllers
 XF86AudioPlay exec \
@@ -203,6 +205,20 @@ XF86MonBrightnessDown exec \
 XF86ScreenSaver exec \
 	sh -c 'if [[ "$(light)" == "0.00" ]]; then light -I; else light -O; light -S 0; fi'
 
+XF86Favorites exec  \
+	notify-send -h string:x-dunst-stack-tag:special -t 500 "FAVORITES"
+
+XF86Calculator exec  \
+	notify-send -h string:x-dunst-stack-tag:special -t 500 "CALCULATOR"
+
 }
+
+bindcode {
+
+248 exec  \
+	notify-send -h string:x-dunst-stack-tag:special -t 500 "SNIP"
+
+}
+
 
 # vim: set syntax=sh

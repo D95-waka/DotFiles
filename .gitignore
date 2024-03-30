@@ -21,6 +21,7 @@ fish/functions/_*
 !gtk-4.0/**
 !scripts/**
 !ranger/**
+ranger/plugins/**
 !wezterm/**
 !waybar/**
 nvim/lazy-lock.json
