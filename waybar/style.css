@@ -1,64 +1,121 @@
+@import "macchiato.css";
+
 * {
     font-family: monospace;
-    font-size: 13px;
-    min-height: 0;
-    color: white;
+	color: @text;
+	font-size: 12px;
+	min-height: 0;
 }
 
 window#waybar {
-    background-color: black;
+  background-color: shade(@base, 0.9);
+  border: 2px solid alpha(@crust, 0.3);
+}
+
+#waybar {
+  background: transparent;
+  color: @text;
+  margin: 5px 5px;
+}
+
+#workspaces {
+  border-radius: 1rem;
+  margin: 5px;
+  background-color: @surface0;
+  margin-left: 1rem;
 }
 
 #workspaces button {
-    padding: 1px 5px;
-    background: transparent;
-    color: white;
-    border-bottom: 3px solid transparent;
+  color: @lavender;
+  border-radius: 1rem;
+  padding: 0.4rem;
 }
 
-#workspaces button.active, #workspaces button.focused {
-    background: #689d6a;
-    border-bottom: 3px solid white;
+#workspaces button.active {
+  color: @sky;
+  border-radius: 1rem;
 }
 
+#workspaces button:hover {
+  color: @sapphire;
+  border-radius: 1rem;
+}
+
+#custom-music,
 #tray,
-#mpd,
-#cpu, 
-#temperature, 
-#memory,
-#sway-mode,
-#backlight, 
-#pulseaudio, 
-#disk,
-#battery, 
-#clock, 
+#backlight,
+#clock,
+#battery,
+#pulseaudio,
+#custom-lock,
 #language,
-#network {
-	padding: 0 7px;
+#cpu,
+#memory,
+#temperature,
+#network,
+#custom-power {
+  background-color: @surface0;
+  padding: 0.5rem 1rem;
+  margin: 5px 0;
 }
 
-#window {
-	color: #8ec07c;
+#language {
+	color: @blue;
 }
 
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: black;
-    }
+#temperature {
+	color: @green;
+}
+
+#clock {
+  color: @blue;
+  border-radius: 0px 1rem 1rem 0px;
+  margin-right: 1rem;
+}
+
+#battery {
+  color: @green;
 }
 
 #battery.charging {
-    color: white;
-    background-color: #d79921;
+  color: @green;
 }
 
 #battery.warning:not(.charging) {
-    background: #f53c3c;
-    color: white;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+  color: @red;
+}
+
+#backlight {
+  color: @yellow;
+}
+
+#backlight, #battery {
+    border-radius: 0;
+}
+
+#pulseaudio {
+  color: @maroon;
+  border-radius: 1rem 0px 0px 1rem;
+  margin-left: 1rem;
+}
+
+#custom-music {
+  color: @mauve;
+  border-radius: 1rem;
+}
+
+#custom-lock {
+    border-radius: 1rem 0px 0px 1rem;
+    color: @lavender;
+}
+
+#custom-power {
+    margin-right: 1rem;
+    border-radius: 0px 1rem 1rem 0px;
+    color: @red;
+}
+
+#tray {
+  margin-right: 1rem;
+  border-radius: 1rem;
 }

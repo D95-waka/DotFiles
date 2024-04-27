@@ -63,11 +63,13 @@ vim.opt.rtp:prepend(lazypath)
 
 local lazy_plugins = {
 	{
-		"ellisonleao/gruvbox.nvim",
+		"catppuccin/nvim",
+		name = "catppuccin",
 		priority = 1000,
 		config = true,
 		opts = {
-			transparent_mode = true
+			transparent_background = true,
+			flavour = "macchiato"
 		}
 	},
 	{ "lewis6991/gitsigns.nvim", opts = {} },
@@ -117,7 +119,7 @@ require('nvim-treesitter.configs').setup {
 
 -- Theme
 vim.o.background = 'dark'
-vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme catppuccin")
 
 -- Mappings.
 local opts = { noremap=true, silent=true }

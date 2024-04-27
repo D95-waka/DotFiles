@@ -9,53 +9,55 @@ floating_minimum_size 24 x 24
 
 font monospace 8
 seat seat0 xcursor_theme Adwaita 12
-output * bg '~/.config/wallpapers/gruvbox_grid.png' fill
+output * bg '~/.config/wallpapers/catppuccin_macchiato_grid.png' fill
 
-set $c_red #cc241d
-set $c_green #98971a
-set $c_yello #d79921
-set $c_blue #458588
-set $c_purple #b16286
-set $c_cyan #689d6a
+set $rosewater #f4dbd6
+set $flamingo #f0c6c6
+set $pink #f5bde6
+set $mauve #c6a0f6
+set $red #ed8796
+set $maroon #ee99a0
+set $peach #f5a97f
+set $yellow #eed49f
+set $green #a6da95
+set $teal #8bd5ca
+set $sky #91d7e3
+set $sapphire #7dc4e4
+set $blue #8aadf4
+set $lavender #b7bdf8
+set $text #cad3f5
+set $subtext1 #b8c0e0
+set $subtext0 #a5adcb
+set $overlay2 #939ab7
+set $overlay1 #8087a2
+set $overlay0 #6e738d
+set $surface2 #5b6078
+set $surface1 #494d64
+set $surface0 #363a4f
+set $base #24273a
+set $mantle #1e2030
+set $crust #181926
 
-set $h_red #fb4934
-set $h_green #b8bb26
-set $h_yello #fabd2f
-set $h_blue #83a598
-set $h_purple #d3869b
-set $h_cyan #8ec07c
+#target                 title     bg    text   indicator  border
+client.focused           $lavender $base $text  $rosewater $lavender
+client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
+client.unfocused         $overlay0 $base $text  $rosewater $overlay0
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
 
-set $white #fbf1c7
-set $dark #1d2021
-set $dim #282828
-
-set $focused_bgcolor $h_blue
-set $focused_textcolor $dark
-set $focused_indicator $c_blue
-
-set $inactive_bgcolor $c_cyan
-set $inactive_textcolor $dark
-set $inactive_indicator $c_cyan
-
-set $unfocused_bgcolor $c_cyan
-set $unfocused_textcolor $dark
-set $unfocused_indicator $c_cyan
-
-set $urgent_bgcolor $c_red
-set $urgent_textcolor $dark
-set $urgent_indicator $h_red
-
-client.focused $focused_bgcolor $focused_bgcolor $focused_textcolor $focused_indicator $focused_bgcolor
-client.focused_inactive $inactive_bgcolor $inactive_bgcolor $inactive_textcolor $inactive_indicator $inactive_bgcolor
-client.unfocused $unfocused_bgcolor $unfocused_bgcolor $unfocused_textcolor $unfocused_indicator $unfocused_bgcolor
-client.urgent $urgent_bgcolor $urgent_bgcolor $urgent_textcolor $urgent_indicator $urgent_bgcolor
-
-bar 1 colors {
-	background $dark
-	statusline $white
-	separator $h_cyan
-	focused_workspace $h_cyan $h_blue $dark
-	inactive_workspace $h_cyan $dim $white
+# bar
+bar 1 {
+  colors {
+    background         $base
+    statusline         $text
+    focused_statusline $text
+    focused_separator  $base
+    focused_workspace  $base $base $green
+    active_workspace   $base $base $blue
+    inactive_workspace $base $base $surface1
+    urgent_workspace   $base $base $surface1
+    binding_mode       $base $base $surface1
+  }
 }
 
-# vim: set syntax=sh :

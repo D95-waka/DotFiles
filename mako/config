@@ -3,10 +3,11 @@ width=200
 padding=10, 10, 10, 10
 text-alignment=left
 
-# style
-background-color=#1d2021d0
-border-color=#d4be98
-text-color=#d4be98
+# Colors
+background-color=#24273a
+text-color=#cad3f5
+border-color=#8aadf4
+progress-color=over #363a4f
 font=monospace 14
 icons=1
 

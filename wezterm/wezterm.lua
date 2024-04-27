@@ -6,7 +6,7 @@ config.bidi_enabled = true
 config.bidi_direction = 'LeftToRight'
 
 -- Appearance
-config.color_scheme = 'Gruvbox dark, hard (base16)'
+config.color_scheme = 'Catppuccin Macchiato'
 config.hide_tab_bar_if_only_one_tab = true
 config.window_padding = {
   left = 0,
