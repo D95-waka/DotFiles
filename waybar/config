@@ -15,6 +15,10 @@
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
+    "sway/language": {
+        "format": "{shortDescription}",
+		"on-click": "swaymsg input type:keyboard xkb_switch_layout next"
+    },
     "sway/scratchpad": {
         "format": "{icon} {count}",
         "show-empty": false,
