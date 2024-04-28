@@ -205,6 +205,9 @@ XF86MonBrightnessDown exec \
 XF86ScreenSaver exec \
 	sh -c 'if [[ "$(light)" == "0.00" ]]; then light -I; else light -O; light -S 0; fi'
 
+Shift+XF86MonBrightnessUp exec \
+	'~/.config/scripts/darkmode.sh toggle'
+
 XF86Favorites exec  \
 	notify-send -h string:x-dunst-stack-tag:special -t 500 "FAVORITES"
 
