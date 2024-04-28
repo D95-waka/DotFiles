@@ -8,7 +8,7 @@ default_border pixel 3
 floating_minimum_size 24 x 24
 
 font monospace 8
-seat seat0 xcursor_theme Adwaita 12
+seat seat0 xcursor_theme Catppuccin-Macchiato-Dark-Cursors 14
 output * bg '~/.config/wallpapers/catppuccin_macchiato_grid.png' fill
 
 set $rosewater #f4dbd6
@@ -46,18 +46,4 @@ client.urgent            $peach    $base $peach $overlay0  $peach
 client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
 client.background        $base
 
-# bar
-bar 1 {
-  colors {
-    background         $base
-    statusline         $text
-    focused_statusline $text
-    focused_separator  $base
-    focused_workspace  $base $base $green
-    active_workspace   $base $base $blue
-    inactive_workspace $base $base $surface1
-    urgent_workspace   $base $base $surface1
-    binding_mode       $base $base $surface1
-  }
-}
-
+exec_always '~/.config/scripts/darkmode.sh self'

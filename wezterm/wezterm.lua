@@ -1,12 +1,21 @@
 local wezterm = require 'wezterm'
 config = wezterm.config_builder()
 
+-- functions
+function scheme_for_appearance(appearance)
+	if appearance:find "Dark" then
+		return "Catppuccin Macchiato"
+	else
+		return "Catppuccin Latte"
+	end
+end
+
 -- Behevior
 config.bidi_enabled = true
 config.bidi_direction = 'LeftToRight'
 
 -- Appearance
-config.color_scheme = 'Catppuccin Macchiato'
+config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
 config.hide_tab_bar_if_only_one_tab = true
 config.window_padding = {
   left = 0,

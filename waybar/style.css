@@ -1,5 +1,3 @@
-@import "macchiato.css";
-
 * {
     font-family: monospace;
 	color: @text;

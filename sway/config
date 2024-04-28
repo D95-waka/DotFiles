@@ -1,6 +1,8 @@
 # Sway configuration file
 # For more info, see man 5 sway
 
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+include /etc/sway/config.d/*
 include conf.d/*
 
 # vim: set syntax=sh
