@@ -49,14 +49,14 @@ vim.g.vimtex_syntax_conceal_disable = 1
 -- Lazy nvim plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -76,33 +76,33 @@ local lazy_plugins = {
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
-		  options = {
-			theme = auto,
-			component_separators = '',
-			section_separators = { left = '', right = '' },
-		  },
-		  sections = {
-			lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
-			lualine_b = { 'filename', 'branch', 'diff', 'diagnostics' },
-			lualine_c = {
-			  '%=', --[[ add your center compoentnts here in place of this comment ]]
+			options = {
+				theme = 'auto',
+				component_separators = '',
+				section_separators = { left = '', right = '' },
 			},
-			lualine_x = {},
-			lualine_y = { 'filetype', 'progress' },
-			lualine_z = {
-			  { 'location', separator = { right = '' }, left_padding = 2 },
+			sections = {
+				lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+				lualine_b = { 'filename', 'branch', 'diff', 'diagnostics' },
+				lualine_c = {
+					'%=', --[[ add your center compoentnts here in place of this comment ]]
+				},
+				lualine_x = {},
+				lualine_y = { 'filetype', 'progress' },
+				lualine_z = {
+					{ 'location', separator = { right = '' }, left_padding = 2 },
+				},
 			},
-		  },
-		  inactive_sections = {
-			lualine_a = { 'filename' },
-			lualine_b = {},
-			lualine_c = {},
-			lualine_x = {},
-			lualine_y = {},
-			lualine_z = { 'location' },
-		  },
-		  tabline = {},
-		  extensions = {},
+			inactive_sections = {
+				lualine_a = { 'filename' },
+				lualine_b = {},
+				lualine_c = {},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = { 'location' },
+			},
+			tabline = {},
+			extensions = {},
 		}
 	},
 	{
@@ -156,18 +156,18 @@ vim.o.background = 'dark'
 vim.cmd("colorscheme catppuccin")
 
 -- Mappings.
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 	-- Mappings.
-	local bufopts = { noremap=true, silent=true, buffer=bufnr }
+	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
 	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
 	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -176,7 +176,7 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
 	vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
 	vim.keymap.set('n', '<space>wl', function()
-	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, bufopts)
 	vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
 	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
@@ -184,6 +184,40 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
+
+require("lspconfig").lua_ls.setup {
+	on_attach = on_attach,
+	capabilities = require("cmp_nvim_lsp").default_capabilities(),
+	on_init = function(client)
+		local path = client.workspace_folders[1].name
+		if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+			return
+		end
+
+		client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+			runtime = {
+				-- Tell the language server which version of Lua you're using
+				-- (most likely LuaJIT in the case of Neovim)
+				version = 'LuaJIT'
+			},
+			-- Make the server aware of Neovim runtime files
+			workspace = {
+				checkThirdParty = false,
+				library = {
+					vim.env.VIMRUNTIME
+					-- Depending on the usage, you might want to add additional paths here.
+					-- "${3rd}/luv/library"
+					-- "${3rd}/busted/library",
+				}
+				-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+				-- library = vim.api.nvim_get_runtime_file("", true)
+			}
+		})
+	end,
+	settings = {
+		Lua = {}
+	}
+}
 
 require('lspconfig').texlab.setup {
 	on_attach = on_attach,
@@ -234,14 +268,14 @@ cmp.setup {
 }
 
 local ls = require('luasnip')
-vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
+vim.keymap.set({ "i" }, "<C-K>", function() ls.expand() end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-L>", function() ls.jump(1) end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-J>", function() ls.jump(-1) end, { silent = true })
 
-vim.keymap.set({"i", "s"}, "<C-E>", function()
+vim.keymap.set({ "i", "s" }, "<C-E>", function()
 	if ls.choice_active() then
 		ls.change_choice(1)
 	end
-end, {silent = true})
+end, { silent = true })
 require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_vscode").lazy_load({paths = { "~/.config/nvim/snippets"} })
+require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/snippets" } })
