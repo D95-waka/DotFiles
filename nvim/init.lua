@@ -1,4 +1,3 @@
-lua << END
 -- Behavior settongs
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -245,6 +244,4 @@ vim.keymap.set({"i", "s"}, "<C-E>", function()
 	end
 end, {silent = true})
 require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_vscode").lazy_load({paths = { "~/.config/vim/snippets"} })
-
-END
+require("luasnip.loaders.from_vscode").lazy_load({paths = { "~/.config/nvim/snippets"} })
