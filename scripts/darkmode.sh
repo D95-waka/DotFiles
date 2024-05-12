@@ -37,6 +37,9 @@ function set_dark {
 	swaymsg -q set \$base \#24273a
 	swaymsg -q set \$mantle \#1e2030
 	swaymsg -q set \$crust \#181926
+
+	swaymsg -q seat seat0 xcursor_theme Catppuccin-Macchiato-Dark-Cursors 14
+	gsettings set org.gnome.desktop.interface cursor-theme Catppuccin-Macchiato-Dark-Cursors
 }
 
 function set_light {
@@ -72,6 +75,9 @@ function set_light {
 	swaymsg -q set \$base \#eff1f5
 	swaymsg -q set \$mantle \#e6e9ef
 	swaymsg -q set \$crust \#dce0e8
+
+	swaymsg -q seat seat0 xcursor_theme Catppuccin-Frappe-Light-Cursors 14
+	gsettings set org.gnome.desktop.interface cursor-theme Catppuccin-Frappe-Light-Cursors
 }
 
 function refresh_color {

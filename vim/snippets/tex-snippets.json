@@ -28,5 +28,17 @@
         "prefix": "8",
         "body": "\\infty",
         "description": "infinity symbol"
+    },
+    "align*": {
+        "prefix": "a*",
+        "body": "\\begin{align*}
+	& ${1} \\\\\\
+\\end{align*}",
+        "description": "align non-numbered"
+    },
+    "linebreak": {
+        "prefix": "br",
+        "body": "\\\\\\*\n",
+        "description": "line break"
     }
 }
