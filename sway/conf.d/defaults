@@ -2,5 +2,7 @@ assign [app_id="firefox"] 2
 assign [title="ranger:/home/waka"] 1
 assign [app_id="mpv"] 3
 for_window [app_id="copyq"] floating enabled
+for_window [title="Picture-in-Picture"] floating enabled
+for_window [title="Picture-in-Picture"] sticky enable
 
 # vim: set syntax=sh

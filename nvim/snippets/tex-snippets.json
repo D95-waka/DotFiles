@@ -40,5 +40,10 @@
         "prefix": "br",
         "body": "\\\\\\*\n",
         "description": "line break"
+    },
+    "implies": {
+        "prefix": "=>",
+        "body": "\\\\implies",
+        "description": "implies arrow"
     }
 }
