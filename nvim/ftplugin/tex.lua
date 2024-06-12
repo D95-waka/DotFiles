@@ -17,6 +17,7 @@ end
 vim.keymap.set("i", "<M-1>", "\\section{")
 vim.keymap.set("i", "<M-2>", "\\subsection{")
 vim.keymap.set("i", "<M-3>", "\\subsubsection{")
+vim.keymap.set("i", "<M-4>", "\\paragraph{")
 
 vim.keymap.set("i", "<M-lt>", "\\langle ")
 vim.keymap.set("i", "<M->>", "\\rangle")

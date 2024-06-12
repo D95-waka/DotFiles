@@ -15,6 +15,8 @@ vim.cmd('filetype plugin on')
 vim.g.mapleader = ' '
 vim.keymap.set('n', '<Leader>y', '"+y')
 vim.keymap.set('n', '<Leader>p', '"+p')
+vim.keymap.set('n', '<ScrollWheelUp>', '<C-Y>')
+vim.keymap.set('n', '<ScrollWheelDown>', '<C-E>')
 
 -- Looks settings
 vim.cmd("syntax on")

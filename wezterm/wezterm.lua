@@ -36,5 +36,15 @@ config.use_fancy_tab_bar = false
 
 -- Keybindings
 config.leader = { key = 'a', mods = 'CTRL|SHIFT', timeout_milliseconds = 1000 }
+config.mouse_bindings = {
+  {
+    event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+    action = wezterm.action.ScrollByLine(-1)
+  },
+  {
+    event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+    action = wezterm.action.ScrollByLine(1)
+  }
+}
 
 return config

@@ -178,16 +178,6 @@ XF86TouchpadToggle exec \
 $mod+c exec \
 	'$HOME/.config/sway/scripts/lock.sh capture blur lock clean suspend'
 
-#Capture options
-Shift+Print exec \
-	'$HOME/.config/scripts/binding_cli.sh screen_capture selection'
-
-$mod+Print exec \
-	'$HOME/.config/scripts/binding_cli.sh screen_capture region'
-
-Print exec \
-	'$HOME/.config/scripts/binding_cli.sh screen_capture screen'
-
 #Change to next language.
 $mod+space exec \
 	notify-send -h string:x-dunst-stack-tag:binds -t 500 \
@@ -214,12 +204,20 @@ XF86Favorites exec  \
 XF86Calculator exec  \
 	notify-send -h string:x-dunst-stack-tag:special -t 500 "CALCULATOR"
 
+
+#Capture options
+Print exec \
+	'$HOME/.config/scripts/binding_cli.sh screen_capture screen'
+
 }
 
 bindcode {
 
 248 exec  \
-	notify-send -h string:x-dunst-stack-tag:special -t 500 "SNIP"
+	'$HOME/.config/scripts/binding_cli.sh screen_capture selection'
+
+$mod+248 exec  \
+	'$HOME/.config/scripts/binding_cli.sh screen_capture region'
 
 }
 
