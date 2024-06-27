@@ -45,5 +45,12 @@
         "prefix": "=>",
         "body": "\\\\implies",
         "description": "implies arrow"
-    }
+    },
+    "c_proposition": {
+        "prefix": "טענה",
+        "body": "\\begin{proposition}
+	${1}
+\\end{proposition}",
+        "description": "proposition environment"
+	}
 }
