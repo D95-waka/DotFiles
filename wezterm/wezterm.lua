@@ -10,6 +10,19 @@ local function scheme_for_appearance(appearance)
 	end
 end
 
+-- copied from: https://wezfurlong.org/wezterm/config/lua/window-events/window-resized.html?h=fullscreen
+local function recompute_padding(window, _)
+	local window_dims = window:get_dimensions()
+	local overrides = window:get_config_overrides() or {}
+	if window_dims.is_full_screen then
+		overrides.window_background_opacity = 1.0
+	else
+		overrides.window_background_opacity = config.window_background_opacity
+	end
+
+	window:set_config_overrides(overrides)
+end
+
 -- Behevior
 config.bidi_enabled = true
 config.bidi_direction = 'LeftToRight'
@@ -28,6 +41,9 @@ config.inactive_pane_hsb = {
 	brightness = 0.8
 }
 config.window_background_opacity = 0.7
+wezterm.on('window-resized', function(window, pane)
+  recompute_padding(window, pane)
+end)
 config.font = wezterm.font_with_fallback {
 	'monospace',
 	'Liberation Mono'

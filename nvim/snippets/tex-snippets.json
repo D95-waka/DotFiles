@@ -21,7 +21,7 @@
     },
     "frac": {
         "prefix": "frac",
-        "body": "\\frac{${1:x}}{${2}}",
+        "body": "\\frac{${1:1}}{${2}}",
         "description": "frac"
     },
     "infinity": {
@@ -45,12 +45,5 @@
         "prefix": "=>",
         "body": "\\\\implies",
         "description": "implies arrow"
-    },
-    "c_proposition": {
-        "prefix": "טענה",
-        "body": "\\begin{proposition}
-	${1}
-\\end{proposition}",
-        "description": "proposition environment"
-	}
+    }
 }
