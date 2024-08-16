@@ -187,7 +187,7 @@ local on_attach = function(_, bufnr)
 	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-require("lspconfig").lua_ls.setup {
+require('lspconfig').lua_ls.setup {
 	on_attach = on_attach,
 	capabilities = require("cmp_nvim_lsp").default_capabilities(),
 	on_init = function(client)
@@ -218,6 +218,21 @@ require("lspconfig").lua_ls.setup {
 	end,
 	settings = {
 		Lua = {}
+	}
+}
+
+require('lspconfig').pylsp.setup {
+	on_attach = on_attach,
+	capabilities = require("cmp_nvim_lsp").default_capabilities(),
+	settings = {
+		pylsp = {
+			plugins = {
+				pycodestyle = {
+					ignore = { 'W391' },
+					maxLineLength = 100
+				}
+			}
+		}
 	}
 }
 

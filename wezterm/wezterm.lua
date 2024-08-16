@@ -23,6 +23,20 @@ local function recompute_padding(window, _)
 	window:set_config_overrides(overrides)
 end
 
+-- function defined as custom event to use window & pane
+wezterm.on('rtl-toggle', function(window, pane)
+	local overrides = window:get_config_overrides() or {}
+	if config.bidi_enabled then
+		config.bidi_enabled = false
+	else
+		config.bidi_enabled = true
+	end
+
+	overrides.bidi_enabled = config.bidi_enabled
+	window:set_config_overrides(overrides)
+	window:perform_action(wezterm.action.SendKey { key = 'l', mods = 'CTRL' }, pane)
+end)
+
 -- Behevior
 config.bidi_enabled = true
 config.bidi_direction = 'LeftToRight'
@@ -42,7 +56,7 @@ config.inactive_pane_hsb = {
 }
 config.window_background_opacity = 0.7
 wezterm.on('window-resized', function(window, pane)
-  recompute_padding(window, pane)
+	recompute_padding(window, pane)
 end)
 config.font = wezterm.font_with_fallback {
 	'monospace',
@@ -52,15 +66,22 @@ config.use_fancy_tab_bar = false
 
 -- Keybindings
 config.leader = { key = 'a', mods = 'CTRL|SHIFT', timeout_milliseconds = 1000 }
+config.keys = {
+	{
+		key = 's',
+		mods = 'CTRL',
+		action = wezterm.action.EmitEvent("rtl-toggle")
+	},
+}
 config.mouse_bindings = {
-  {
-    event = { Down = { streak = 1, button = { WheelUp = 1 } } },
-    action = wezterm.action.ScrollByLine(-1)
-  },
-  {
-    event = { Down = { streak = 1, button = { WheelDown = 1 } } },
-    action = wezterm.action.ScrollByLine(1)
-  }
+	{
+		event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+		action = wezterm.action.ScrollByLine(-1)
+	},
+	{
+		event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+		action = wezterm.action.ScrollByLine(1)
+	}
 }
 
 return config

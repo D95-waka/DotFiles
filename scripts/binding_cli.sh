@@ -28,22 +28,6 @@ function screen_capture {
 }
 
 ##export
-function bemenu_run {
-	source $HOME/Scripts/colors_define.sh
-	bemenu-run \
-		-l 10 \
-		--fn universal\
-		--tb="$foreground_value" \
-		--tf="$background_value" \
-		--fb="$background_value" \
-		--ff="$foreground_value" \
-		--nb="$background_value" \
-		--nf="$foreground_value" \
-		--hb="$foreground_value" \
-		--hf="$background_value"
-}
-
-##export
 function bemenu_locate {
 	source $HOME/Scripts/colors_define.sh
 	local selected="$($HOME/Scripts/locate_wrapper.sh |
