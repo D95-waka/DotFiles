@@ -45,5 +45,10 @@
         "prefix": "=>",
         "body": "\\\\implies",
         "description": "implies arrow"
+    },
+    "Omega": {
+        "prefix": "@O",
+        "body": "\\Omega",
+        "description": "Capital Omega"
     }
 }

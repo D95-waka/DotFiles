@@ -1,10 +1,9 @@
 ## sway hotkey configuration
 
-#set $up Up
-#set $down Down
-#set $left Left
-#set $right Right
-
+set $up k
+set $down j
+set $left h
+set $right l
 
 floating_modifier $mod
 
@@ -25,7 +24,7 @@ bindsym --to-code {
 $mod+grave exec \
 	$TERMINAL
 
-$mod+w kill
+$mod+Shift+q kill
 
 $mod+r exec \
 	fuzzel

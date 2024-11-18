@@ -8,7 +8,7 @@ vim.opt.wildmenu = true
 vim.opt.smartcase = true
 vim.opt.incsearch = true
 vim.opt.mouse = 'nvicr'
-vim.opt.scrolloff = 1
+vim.opt.scrolloff = 0
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("data") .. "/state/undo"
 vim.cmd('filetype plugin on')

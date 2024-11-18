@@ -7,6 +7,8 @@ function get_state {
 function set_dark {
 	notify-send -h string:x-dunst-stack-tag:darkmode -t 500 "dark mode"
 	gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+	gsettings set org.gnome.desktop.interface gtk-theme Catppuccin-Macchiato-Standard-Blue-Dark
+	sed -i 's|color_scheme_path=.*|color_scheme_path=/home/waka/.config/qt6ct/colors/Catppuccin-Macchiato.conf|' ~/.config/qt6ct/qt6ct.conf
 	makoctl set-mode dark
 
 	swaymsg -q output \* bg '~/.config/wallpapers/catppuccin_macchiato_grid.png' fill
@@ -45,6 +47,8 @@ function set_dark {
 function set_light {
 	notify-send -h string:x-dunst-stack-tag:darkmode -t 500 "light mode"
 	gsettings set org.gnome.desktop.interface color-scheme prefer-light
+	gsettings set org.gnome.desktop.interface gtk-theme Catppuccin-Latte-Standard-Blue-Light
+	sed -i 's|color_scheme_path=.*|color_scheme_path=/home/waka/.config/qt6ct/colors/Catppuccin-Latte.conf|' ~/.config/qt6ct/qt6ct.conf
 	makoctl set-mode light
 
 	swaymsg -q output \* bg '~/.config/wallpapers/catppuccin_latte_grid.png' fill
