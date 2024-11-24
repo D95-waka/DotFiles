@@ -4,5 +4,6 @@ assign [app_id="mpv"] 3
 for_window [app_id="copyq"] floating enabled
 for_window [title="Picture-in-Picture"] floating enabled
 for_window [title="Picture-in-Picture"] sticky enable
+workspace $ws10 output HDMI-A-1
 
 # vim: set syntax=sh

@@ -220,5 +220,17 @@ $mod+248 exec  \
 
 }
 
+bindgesture swipe:3:right workspace next
+bindgesture swipe:3:left workspace prev
+
+bindgesture swipe:4:left move left
+bindgesture swipe:4:right move right
+bindgesture swipe:4:down move down
+bindgesture swipe:4:up move up
+
+bindgesture hold:4 exec $TERMINAL
+
+#bindgesture pinch:2:clockwise+right focus right
+
 
 # vim: set syntax=sh

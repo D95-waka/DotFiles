@@ -1,7 +1,28 @@
 ## sway startup configuration
 
+set $up k
+set $down j
+set $left h
+set $right l
+set $mod Mod4
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "e1"
+
+set $disp1 "eDP-1"
+set $disp2 "HDMI-A-1"
+
 xwayland disable
 focus_follows_mouse no
+mouse_warping none
 input * {
 	xkb_options "grp:win_space_toggle,caps:escape_shifted_capslock"
 	xkb_layout "us,il"
@@ -10,6 +31,12 @@ input * {
 	tap enabled
 	pointer_accel 0.25
 }
+
+output "$disp2" {
+	pos 0 1600
+}
+bindswitch --reload --locked lid:on output $disp1 disable
+bindswitch --reload --locked lid:off output $disp1 enable
 
 exec_always 'killall mako; mako &'
 exec_always '~/.config/scripts/info_daemon/info_daemon.sh'
@@ -28,22 +55,5 @@ bar 1 {
 	mode hide
 	swaybar_command waybar
 }
-
-set $up k
-set $down j
-set $left h
-set $right l
-set $mod Mod4
-
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
 
 # vim: set syntax=sh
