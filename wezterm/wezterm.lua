@@ -54,7 +54,7 @@ config.inactive_pane_hsb = {
 	saturation = 0.9,
 	brightness = 0.8
 }
-config.window_background_opacity = 0.7
+config.window_background_opacity = 0.9
 wezterm.on('window-resized', function(window, pane)
 	recompute_padding(window, pane)
 end)

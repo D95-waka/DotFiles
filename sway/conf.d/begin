@@ -32,15 +32,22 @@ input * {
 	pointer_accel 0.25
 }
 
+input "1008:4504:HP_HP_USB_1000dpi_Laser_Mouse" {
+	scroll_factor 2
+}
+
 output "$disp2" {
 	pos 0 1600
+	scale_filter linear
+	subpixel rgb
+	scale 1.0
 }
 bindswitch --reload --locked lid:on output $disp1 disable
 bindswitch --reload --locked lid:off output $disp1 enable
 
 exec_always 'killall mako; mako &'
 exec_always '~/.config/scripts/info_daemon/info_daemon.sh'
-exec_always 'copyq exit; copyq'
+#exec_always 'copyq exit; copyq'
 #exec_always 'killall agent; /usr/lib/geoclue-2.0/demos/agent > /dev/null &'
 #exec_always 'killall -9 gammastep; gammastep -c ~/.config/gammastep.conf'
 
@@ -51,9 +58,12 @@ exec ' \
 	pidof -q firefox || firefox &'
 
 bar 1 {
-	modifier "Mod4+Shift"
+	modifier "Mod4+Alt"
 	mode hide
+	position top
 	swaybar_command waybar
+	font monospace
+	status_command -
 }
 
 # vim: set syntax=sh

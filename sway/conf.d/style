@@ -9,7 +9,7 @@ floating_minimum_size 24 x 24
 
 font monospace 8
 seat seat0 xcursor_theme Catppuccin-Macchiato-Dark-Cursors 14
-output * bg '~/.config/wallpapers/catppuccin_macchiato_grid.png' fill
+output * bg '~/.config/wallpapers/mandelbrot_side_blue.png' fill
 
 set $rosewater #f4dbd6
 set $flamingo #f0c6c6

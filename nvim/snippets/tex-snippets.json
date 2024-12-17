@@ -50,5 +50,10 @@
         "prefix": "@O",
         "body": "\\Omega",
         "description": "Capital Omega"
-    }
+    },
+	"overset": {
+		"prefix": "\\overset",
+		"body": "\\overset{${1}}{${2:=}}",
+		"description": "overset"
+	}
 }

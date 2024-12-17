@@ -32,6 +32,11 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevel = 30
 
+-- spell settings
+vim.opt.spelllang = 'custom,he,en'
+vim.opt.spellcapcheck = ''
+vim.opt.spell = true
+
 -- Auto commands groups settings
 local specialsgroup = vim.api.nvim_create_augroup('specials', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
@@ -120,11 +125,11 @@ local lazy_plugins = {
 		config = {
 			update_interval = 1000,
 			set_dark_mode = function()
-				vim.api.nvim_set_option("background", "dark")
+				vim.opt.background = 'dark'
 				vim.cmd("colorscheme catppuccin-macchiato")
 			end,
 			set_light_mode = function()
-				vim.api.nvim_set_option("background", "light")
+				vim.opt.background = 'light'
 				vim.cmd("colorscheme gruvbox-latte")
 			end,
 		},

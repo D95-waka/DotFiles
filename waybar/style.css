@@ -1,42 +1,44 @@
 * {
-    font-family: monospace;
+	font-family: monospace;
 	color: @text;
 	font-size: 12px;
 	min-height: 0;
 }
 
 window#waybar {
-  background-color: shade(@base, 0.9);
-  border: 2px solid alpha(@crust, 0.3);
+	background-color: shade(@base, 0.9);
+	border: 2px solid alpha(@crust, 0.3);
 }
 
 #waybar {
-  background: transparent;
-  color: @text;
-  margin: 5px 5px;
+	background: transparent;
+	color: @text;
+	margin: 5px 5px;
 }
 
 #workspaces {
-  border-radius: 1rem;
-  margin: 5px;
-  background-color: @surface0;
-  margin-left: 1rem;
+	border-radius: 1rem;
+	margin: 5px;
+	background-color: @surface0;
+	margin-left: 1rem;
 }
 
 #workspaces button {
-  color: @lavender;
-  border-radius: 1rem;
-  padding: 0.4rem;
+	color: @lavender;
+	border-radius: 1rem;
+	padding: 0.4rem;
 }
 
-#workspaces button.active {
-  color: @sky;
-  border-radius: 1rem;
+#workspaces button.visible {
+	background-color: @surface1;
 }
 
 #workspaces button:hover {
-  color: @sapphire;
-  border-radius: 1rem;
+	color: @sapphire;
+}
+
+#workspaces button.urgent {
+	background-color: @red;
 }
 
 #custom-music,
@@ -50,11 +52,12 @@ window#waybar {
 #cpu,
 #memory,
 #temperature,
+#keyboard-state label,
 #network,
 #custom-power {
-  background-color: @surface0;
-  padding: 0.5rem 1rem;
-  margin: 5px 0;
+	background-color: @surface0;
+	padding: 0.5rem 1rem;
+	margin: 5px 0;
 }
 
 #language {
@@ -66,54 +69,64 @@ window#waybar {
 }
 
 #clock {
-  color: @blue;
-  border-radius: 0px 1rem 1rem 0px;
-  margin-right: 1rem;
+	color: @blue;
+	border-radius: 0px 1rem 1rem 0px;
+	margin-right: 1rem;
 }
 
 #battery {
-  color: @green;
+	color: @green;
 }
 
 #battery.charging {
-  color: @green;
+	color: @green;
 }
 
 #battery.warning:not(.charging) {
-  color: @red;
+	color: @red;
 }
 
 #backlight {
-  color: @yellow;
+	color: @yellow;
 }
 
 #backlight, #battery {
-    border-radius: 0;
+	border-radius: 0;
 }
 
 #pulseaudio {
-  color: @maroon;
-  border-radius: 1rem 0px 0px 1rem;
-  margin-left: 1rem;
+	color: @maroon;
+	border-radius: 1rem 0px 0px 1rem;
+	margin-left: 1rem;
 }
 
 #custom-music {
-  color: @mauve;
-  border-radius: 1rem;
+	color: @mauve;
+	border-radius: 1rem;
 }
 
 #custom-lock {
-    border-radius: 1rem 0px 0px 1rem;
-    color: @lavender;
+	border-radius: 1rem 0px 0px 1rem;
+	color: @lavender;
 }
 
 #custom-power {
-    margin-right: 1rem;
-    border-radius: 0px 1rem 1rem 0px;
-    color: @red;
+	margin-right: 1rem;
+	border-radius: 0px 1rem 1rem 0px;
+	color: @red;
 }
 
 #tray {
-  margin-right: 1rem;
-  border-radius: 1rem;
+	margin-right: 1rem;
+	border-radius: 1rem;
+}
+
+#keyboard-state label:not(.locked) {
+	font-size: 0;
+	margin: 0;
+	padding: 0;
+}
+
+#keyboard-state label.locked {
+	color: @red;
 }

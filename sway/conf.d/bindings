@@ -99,8 +99,8 @@ $mod+Shift+8 move container to workspace $ws8
 $mod+Shift+9 move container to workspace $ws9
 $mod+Shift+0 move container to workspace $ws10
 
-$mod+Tab workspace next
-$mod+Shift+Tab workspace prev
+$mod+Tab workspace next_on_output
+$mod+Shift+Tab workspace prev_on_output
 
 # reload the configuration file
 $mod+Shift+c reload
@@ -207,6 +207,12 @@ XF86Calculator exec  \
 #Capture options
 Print exec \
 	'$HOME/.config/scripts/binding_cli.sh screen_capture screen'
+
+Print+Shift exec  \
+	'$HOME/.config/scripts/binding_cli.sh screen_capture selection'
+
+Print+Ctrl exec  \
+	'$HOME/.config/scripts/binding_cli.sh screen_capture region'
 
 }
 
