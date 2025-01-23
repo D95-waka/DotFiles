@@ -27,7 +27,7 @@ vim.keymap.set("i", "<M-m>", "$")
 vim.keymap.set("i", "<M-0>", "\\circ")
 vim.keymap.set("i", "<M-.>", "\\cdot")
 vim.keymap.set("i", "<M-=>", "\\times")
-vim.keymap.set("i", "<C-CR>", "\\\\*<CR>")
+vim.keymap.set("i", "<C-CR>", "\\\\<CR>")
 vim.keymap.set("i", "<M-f>", "\\varphi")
 
 vim.keymap.set("i", "<M-->", "<Cmd>lua handleInsert(\"overline\")<CR>")

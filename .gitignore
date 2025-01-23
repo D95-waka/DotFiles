@@ -25,3 +25,4 @@ ranger/plugins/**
 !wezterm/**
 !waybar/**
 nvim/lazy-lock.json
+nvim/spell/*

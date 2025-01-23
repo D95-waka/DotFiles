@@ -81,7 +81,7 @@ local lazy_plugins = {
 	{ "lewis6991/gitsigns.nvim", opts = {} },
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = { 'nvim-tree/nvim-web-devicons', 'AndreM222/copilot-lualine' },
 		opts = {
 			options = {
 				theme = 'auto',
@@ -95,7 +95,7 @@ local lazy_plugins = {
 					'%=', --[[ add your center compoentnts here in place of this comment ]]
 				},
 				lualine_x = {},
-				lualine_y = { 'filetype', 'progress' },
+				lualine_y = { 'copilot', 'filetype', 'progress' },
 				lualine_z = {
 					{ 'location', separator = { right = '' }, left_padding = 2 },
 				},
@@ -133,6 +133,18 @@ local lazy_plugins = {
 				vim.cmd("colorscheme gruvbox-latte")
 			end,
 		},
+	},
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup {
+				filetypes = {
+					["*"] = false,
+				}
+			}
+		end,
 	},
 	"nvim-treesitter/nvim-treesitter",
 	"hrsh7th/cmp-nvim-lsp",
